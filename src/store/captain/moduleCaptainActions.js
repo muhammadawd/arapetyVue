@@ -21,11 +21,15 @@ export default {
         })
     })
   },
-  fetchCaptains({commit}) {
+  fetchCaptains({commit}, filters) {
     return new Promise((resolve, reject) => {
-      axios.get(requests.ALL_CAPTAINS)
+      axios.get(requests.ALL_CAPTAINS, {
+        params: filters
+      })
         .then((response) => {
-          commit('SET_CAPTAINS', response.data)
+          if (response.data.status) {
+            commit('SET_CAPTAINS', response.data.data.drivers.data)
+          }
           resolve(response)
         })
         .catch((error) => {

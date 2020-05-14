@@ -33,18 +33,114 @@ export default [
     ]
   },
   {
-    url: null,
-    name: "captain",
-    icon: "TruckIcon",
-    i18n: "captain",
-    submenu: [
+    header: "Apps",
+    icon: "PackageIcon",
+    i18n: "app_core",
+    items: [
       {
-        url: '/captainsModule/all-captains',
-        name: "captains",
-        slug: "all-captains",
-        i18n: "captains",
+        url: null,
+        name: "captain",
+        icon: "UserIcon",
+        i18n: "captain",
+        submenu: [
+          {
+            url: '/captainsModule/all-captains',
+            name: "captains",
+            slug: "all-captains",
+            i18n: "captains",
+          },
+        ]
+      },
+      {
+        url: null,
+        name: "orders",
+        icon: "LifeBuoyIcon",
+        i18n: "orders",
+        submenu: [
+          {
+            url: '/ordersModule/all-orders',
+            name: "orders",
+            slug: "all-orders",
+            i18n: "orders",
+          },
+        ]
+      },
+      {
+        url: null,
+        name: "vehicles",
+        icon: "TruckIcon",
+        i18n: "vehicles",
+        submenu: [
+          {
+            url: '/vehiclesModule/all-vehicles',
+            name: "vehicles",
+            slug: "all-vehicles",
+            i18n: "vehicles",
+          }
+        ]
+      },
+      {
+        url: null,
+        name: "clients",
+        icon: "UsersIcon",
+        i18n: "clients",
+        submenu: [
+          {
+            url: '/clientsModule/all-clients',
+            name: "clients",
+            slug: "all-clients",
+            i18n: "clients",
+          }
+        ]
+      },
+      {
+        url: null,
+        name: "coupons",
+        icon: "GiftIcon",
+        i18n: "coupons",
+        submenu: [
+          {
+            url: '/couponsModule/all-coupons',
+            name: "coupons",
+            slug: "all-coupons",
+            i18n: "coupons",
+          }
+        ]
+      },
+    ],
+  },
+  {
+    header: "Settings",
+    icon: "PackageIcon",
+    i18n: "settings",
+    items: [
+      {
+        url: null,
+        name: "settings",
+        icon: "SettingsIcon",
+        i18n: "settings",
+        submenu: [
+          {
+            url: '/settingsModule/main_settings',
+            name: "main_settings",
+            slug: "main-settings",
+            i18n: "main_settings",
+          },
+          {
+            url: '/adminsModule/all-admins',
+            name: "admins",
+            slug: "all-admins",
+            i18n: "admins",
+          },
+          {
+            url: '/rolesModule/all-roles',
+            name: "roles",
+            slug: "all-roles",
+            i18n: "roles",
+          }
+        ]
       },
     ]
-  },
+  }
 ]
 

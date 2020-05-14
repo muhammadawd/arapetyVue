@@ -461,7 +461,8 @@
       .vs-con-tbody {
         .vs-table--tbody-table {
           tr {
-            background: $theme-dark-bg !important;
+            //background: $theme-dark-bg !important;
+            background: transparent !important;
           }
         }
       }

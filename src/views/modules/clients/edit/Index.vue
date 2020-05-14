@@ -22,59 +22,13 @@
           <span class="text-danger text-sm" v-show="errors.has('phone')">{{ errors.first('phone') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('age')" name="age"
-                    :danger="errors.has('age')" val-icon-danger="close"
-                    autocomplete="off" v-model="dataModel.age"/>
-          <span class="text-danger text-sm" v-show="errors.has('age')">{{ errors.first('age') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('username')" name="username"
-                    :danger="errors.has('username')" val-icon-danger="close"
-                    autocomplete="off" v-model="dataModel.username"/>
-          <span class="text-danger text-sm" v-show="errors.has('username')">{{ errors.first('username') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required'" class="w-full" :label="$t('password')" name="password" type="password"
-                    :danger="errors.has('password')" val-icon-danger="close"
-                    autocomplete="off" v-model="dataModel.password"/>
-          <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|numeric|digits:14'" class="w-full" :label="$t('ssn')" name="ssn"
-                    :danger="errors.has('ssn')" val-icon-danger="close"
-                    autocomplete="off" v-model="dataModel.ssn"/>
-          <span class="text-danger text-sm" v-show="errors.has('ssn')">{{ errors.first('ssn') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('max_cost')" name="max_cost"
-                    :danger="errors.has('max_cost')" val-icon-danger="close"
-                    autocomplete="off" v-model="dataModel.max_cost"/>
-          <span class="text-danger text-sm" v-show="errors.has('max_cost')">{{ errors.first('max_cost') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('office_percent')" name="office_percent"
-                    :danger="errors.has('office_percent')" val-icon-danger="close"
-                    autocomplete="off" v-model="dataModel.office_percent"/>
-          <span class="text-danger text-sm"
-                v-show="errors.has('office_percent')">{{ errors.first('office_percent') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <label class="vs-input--label">{{$t('status')}}</label>
-          <v-select :label="$t('status')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.status_id"/>
-          <span class="text-danger text-sm" v-show="errors.has('status_id')">{{ errors.first('status_id') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <label class="vs-input--label">{{$t('vehicle')}}</label>
-          <v-select :label="$t('vehicle')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.vehicle_id"/>
-          <span class="text-danger text-sm" v-show="errors.has('vehicle_id')">{{ errors.first('vehicle_id') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <label class="vs-input--label">{{$t('license_end_date')}}</label>
-          <flat-pickr class="vs-inputx vs-input--input normal" v-model="dataModel.license_end_date"></flat-pickr>
-          <span class="text-danger text-sm" v-show="errors.has('license_end_date')">{{ errors.first('license_end_date') }}</span>
+          <vs-input v-validate="'required|email'" class="w-full" :label="$t('email')" name="email"
+                    :danger="errors.has('email')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.email"/>
+          <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
         </div>
         <div class="vx-col w-full mb-2">
-          <label class="vs-input--label">{{$t('notes')}}</label>
+          <label class="vs-input--label">{{$t('address')}}</label>
           <vs-textarea class="w-full" name="notes"
                        autocomplete="off" v-model="dataModel.notes"/>
           <span class="text-danger text-sm" v-show="errors.has('notes')">{{ errors.first('notes') }}</span>
@@ -150,7 +104,7 @@
       }
     },
     components: {
-      'v-select': vSelect, flatPickr
+      'v-select': vSelect,flatPickr
     },
     methods: {
       submitForm() {

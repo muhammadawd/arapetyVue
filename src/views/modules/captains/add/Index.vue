@@ -1,3 +1,168 @@
 <template>
-	<h4>You are in add capitain.</h4>
+  <vx-card>
+
+    <form>
+      <div class="vx-row mb-6">
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('first_name')" name="first_name"
+                      :danger="errors.has('first_name')" val-icon-danger="close"
+                    autocomplete="off" v-model=" dataModel.first_name"/>
+          <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('last_name')" name="last_name"
+                    :danger="errors.has('last_name')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.last_name"/>
+          <span class="text-danger text-sm" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('phone')" name="phone"
+                    :danger="errors.has('phone')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.phone"/>
+          <span class="text-danger text-sm" v-show="errors.has('phone')">{{ errors.first('phone') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('age')" name="age"
+                    :danger="errors.has('age')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.age"/>
+          <span class="text-danger text-sm" v-show="errors.has('age')">{{ errors.first('age') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('username')" name="username"
+                    :danger="errors.has('username')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.username"/>
+          <span class="text-danger text-sm" v-show="errors.has('username')">{{ errors.first('username') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required'" class="w-full" :label="$t('password')" name="password" type="password"
+                    :danger="errors.has('password')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.password"/>
+          <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required|numeric|digits:14'" class="w-full" :label="$t('ssn')" name="ssn"
+                    :danger="errors.has('ssn')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.ssn"/>
+          <span class="text-danger text-sm" v-show="errors.has('ssn')">{{ errors.first('ssn') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('max_cost')" name="max_cost"
+                    :danger="errors.has('max_cost')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.max_cost"/>
+          <span class="text-danger text-sm" v-show="errors.has('max_cost')">{{ errors.first('max_cost') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('office_percent')" name="office_percent"
+                    :danger="errors.has('office_percent')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.office_percent"/>
+          <span class="text-danger text-sm"
+                v-show="errors.has('office_percent')">{{ errors.first('office_percent') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <label class="vs-input--label">{{$t('status')}}</label>
+          <v-select :label="$t('status')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.status_id"/>
+          <span class="text-danger text-sm" v-show="errors.has('status_id')">{{ errors.first('status_id') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <label class="vs-input--label">{{$t('vehicle')}}</label>
+          <v-select :label="$t('vehicle')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.vehicle_id"/>
+          <span class="text-danger text-sm" v-show="errors.has('vehicle_id')">{{ errors.first('vehicle_id') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <label class="vs-input--label">{{$t('license_end_date')}}</label>
+          <flat-pickr class="vs-inputx vs-input--input normal" v-model="dataModel.license_end_date"></flat-pickr>
+          <span class="text-danger text-sm" v-show="errors.has('license_end_date')">{{ errors.first('license_end_date') }}</span>
+        </div>
+        <div class="vx-col w-full mb-2">
+          <label class="vs-input--label">{{$t('notes')}}</label>
+          <vs-textarea class="w-full" name="notes"
+                       autocomplete="off" v-model="dataModel.notes"/>
+          <span class="text-danger text-sm" v-show="errors.has('notes')">{{ errors.first('notes') }}</span>
+        </div>
+        <div class="vx-col w-full">
+          <vs-button type="filled" size="small" @click.prevent="submitForm" class="mt-5 block">{{$t('add')}}</vs-button>
+        </div>
+      </div>
+    </form>
+  </vx-card>
 </template>
+
+
+<script>
+  // For custom error message
+  import {Validator} from 'vee-validate'
+  import vSelect from 'vue-select'
+  import flatPickr from 'vue-flatpickr-component';
+  import 'flatpickr/dist/flatpickr.css';
+
+
+  const dict = {
+    custom: {
+      first_name: {
+        required: 'Please enter your first name',
+        alpha: "Your first name may only contain alphabetic characters"
+      },
+      last_name: {
+        required: 'Please enter your last name',
+        alpha: "Your last name may only contain alphabetic characters"
+      },
+      username: {
+        required: 'Please enter your username',
+        alpha: "Your username may only contain alphabetic characters"
+      },
+      password: {
+        required: 'Please enter your password',
+      },
+      phone: {
+        required: 'Please enter your phone',
+        numeric: "Your phone may only contain numbers"
+      },
+      ssn: {
+        required: 'Please enter your ssn',
+        digits: 'Your ssn must be 14 digits',
+        numeric: "Your ssn may only contain numbers"
+      },
+    }
+  };
+
+  // register custom messages
+  // Validator.localize('en', dict);
+
+  export default {
+    data() {
+      return {
+        dataModel: {
+          first_name: "",
+          last_name: "",
+          username: "",
+          password: "",
+          phone: "",
+          ssn: "",
+          age: "",
+          office_percent: 0,
+          max_cost: 0,
+          notes: "",
+          vehicle_id: "",
+          status_id: "",
+          branch_id: "",
+          license_end_date: "",
+        }
+      }
+    },
+    components: {
+      'v-select': vSelect, flatPickr
+    },
+    methods: {
+      submitForm() {
+        this.$validator.validateAll().then(result => {
+          if (result) {
+            // if form have no errors
+            alert("form submitted!");
+          } else {
+            // form have errors
+          }
+        })
+      }
+    },
+  }
+</script>

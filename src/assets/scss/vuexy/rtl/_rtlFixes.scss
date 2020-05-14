@@ -4,14 +4,13 @@
   ----------------------------------------------------------------------------------------
 
 ==========================================================================================*/
-
 /*! rtl:begin:ignore */
 @import url(https://fonts.googleapis.com/earlyaccess/notokufiarabic.css);
 //@import url(http://fonts.jozoor.com/jozoor-font/css/font.css);
 .vuesax-app-is-rtl {
 
-  body {
-    font-family:"Noto Kufi Arabic",Sans-Serif!important;
+  body, div, button {
+    font-family: "Noto Kufi Arabic", Sans-Serif !important;
     //font-family:'AraJozoor-Regular',Sans-Serif!important;
   }
 

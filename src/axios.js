@@ -1,7 +1,7 @@
 // axios
 import axios from 'axios'
 
-const baseURL = "https://jsonplaceholder.typicode.com"
+const baseURL = "http://approc.com/~approctest/arapety/api/"
 // let token = '';
 export default axios.create({
   baseURL: baseURL,
