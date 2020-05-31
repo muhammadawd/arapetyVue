@@ -15,12 +15,11 @@ import colors from "@/../themeConfig.js"
 
 // *From Auth - Data will be received from auth provider
 const userDefaults = {
-  uid         : 0,          // From Auth
-  displayName : "John Doe", // From Auth
-  about       : "",
-  photoURL    : require("@/assets/images/portrait/small/avatar-s-11.jpg"), // From Auth
-  status      : "online",
-  userRole    : "admin"
+  id: 0,          // From Auth
+  name: "name", // From Auth
+  about: "",
+  photoURL: require("@/assets/images/portrait/small/avatar-s-11.jpg"), // From Auth
+  status: "online",
 }
 
 const userInfoLocalStorage = JSON.parse(localStorage.getItem("userInfo")) || {}
@@ -33,12 +32,12 @@ const getUserInfo = () => {
   // Update property in user
   Object.keys(userDefaults).forEach((key) => {
     // If property is defined in localStorage => Use that
-    userInfo[key] = userInfoLocalStorage[key] ?  userInfoLocalStorage[key] : userDefaults[key]
+    userInfo[key] = userInfoLocalStorage[key] ? userInfoLocalStorage[key] : userDefaults[key]
   })
 
   // Include properties from localStorage
   Object.keys(userInfoLocalStorage).forEach((key) => {
-    if(userInfo[key] == undefined && userInfoLocalStorage[key] != null) userInfo[key] = userInfoLocalStorage[key]
+    if (userInfo[key] == undefined && userInfoLocalStorage[key] != null) userInfo[key] = userInfoLocalStorage[key]
   })
 
   return userInfo
@@ -49,22 +48,22 @@ const getUserInfo = () => {
 // /////////////////////////////////////////////
 
 const state = {
-    AppActiveUser           : getUserInfo(),
-    bodyOverlay             : false,
-    isVerticalNavMenuActive : true,
-    mainLayoutType          : themeConfig.mainLayoutType || "vertical",
-    navbarSearchAndPinList  : navbarSearchAndPinList,
-    reduceButton            : themeConfig.sidebarCollapsed,
-    verticalNavMenuWidth    : "default",
-    verticalNavMenuItemsMin : false,
-    scrollY                 : 0,
-    starredPages            : navbarSearchAndPinList["pages"].data.filter((page) => page.is_bookmarked),
-    theme                   : themeConfig.theme || "light",
-    themePrimaryColor       : colors.primary,
+  AppActiveUser: getUserInfo(),
+  bodyOverlay: false,
+  isVerticalNavMenuActive: true,
+  mainLayoutType: themeConfig.mainLayoutType || "vertical",
+  navbarSearchAndPinList: navbarSearchAndPinList,
+  reduceButton: themeConfig.sidebarCollapsed,
+  verticalNavMenuWidth: "default",
+  verticalNavMenuItemsMin: false,
+  scrollY: 0,
+  starredPages: navbarSearchAndPinList["pages"].data.filter((page) => page.is_bookmarked),
+  theme: themeConfig.theme || "light",
+  themePrimaryColor: colors.primary,
 
-    // Can be used to get current window with
-    // Note: Above breakpoint state is for internal use of sidebar & navbar component
-    windowWidth: null,
+  // Can be used to get current window with
+  // Note: Above breakpoint state is for internal use of sidebar & navbar component
+  windowWidth: null,
 }
 
 export default state

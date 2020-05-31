@@ -7,11 +7,11 @@
             <vs-button size="small" type="line" color="primary" icon-pack="feather" icon="icon-plus"
                        @click="$router.push({name:'add-coupon'})">{{$t('add')}}
             </vs-button>
-            <vs-button size="small" type="line" color="rgb(62, 201, 214)" class="mb-4 md:mb-0" icon-pack="feather"
+            <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather"
                        icon="icon-search">
               {{$t('filter')}}
             </vs-button>
-            <vs-button size="small" type="line" color="success" class="mb-4 md:mb-0" icon-pack="feather"
+            <vs-button size="small" type="line" color="success" icon-pack="feather"
                        icon="icon-file">
               {{$t('upload_file')}}
             </vs-button>

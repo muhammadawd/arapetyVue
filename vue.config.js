@@ -7,7 +7,7 @@
 
 
 module.exports = {
-  publicPath: '/arapety/front/',
+  publicPath: '/~approctest/arapety/front/',
   transpileDependencies: [
     'vue-echarts',
     'resize-detector'

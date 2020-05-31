@@ -7,7 +7,7 @@
             <vs-button size="small" type="line" color="primary" icon-pack="feather" icon="icon-plus"
                        @click="$router.push({name:'add-captain'})">{{$t('add')}}
             </vs-button>
-            <vs-button size="small" type="line" color="rgb(62, 201, 214)" class="mb-4 md:mb-0" icon-pack="feather"
+            <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather"
                        icon="icon-search">
               {{$t('filter')}}
             </vs-button>
@@ -34,7 +34,7 @@
           <slot v-for="(tr, indextr) in data" class="bg-white">
             <vs-tr class="bg-white">
               <vs-td>
-                <vs-button  size="small" color="primary" icon-pack="feather" icon="icon-edit"
+                <vs-button size="small" color="primary" icon-pack="feather" icon="icon-edit"
                            @click="$router.push({name:'edit-captain',params:{id:tr.id}})">{{$t('edit')}}
                 </vs-button>
               </vs-td>
@@ -92,10 +92,15 @@
     },
     mounted() {
       let vm = this;
+      vm.$vs.loading()
       let filters = vm.prepareFilters();
       let dispatch = this.$store.dispatch('moduleCaptain/fetchCaptains', filters);
       dispatch.then(() => {
         vm.captains = this.$store.getters['moduleCaptain/getAllCaptains'];
+        vm.$vs.loading.close()
+      }).catch((error) => {
+        vm.$helper.handleError(error,vm);
+        vm.$vs.loading.close()
       });
     }
   }

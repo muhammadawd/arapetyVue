@@ -1,11 +1,3 @@
-<!-- =========================================================================================
-    File Name: Login.vue
-    Description: Login Page
-    ----------------------------------------------------------------------------------------
-
-========================================================================================== -->
-
-
 <template>
   <div class="h-screen flex w-full bg-img vx-row no-gutter items-center justify-center" id="page-login">
     <div class="vx-col sm:w-1/2 md:w-1/2 lg:w-3/4 xl:w-3/5 sm:m-0 m-4">
@@ -22,21 +14,42 @@
               <div class="px-8 pt-8 login-tabs-container">
 
                 <div class="vx-card__title mb-4">
-                  <h4 class="mb-4">Login</h4>
-                  <p>Welcome back, please login to your account.</p>
+                  <h4 class="mb-4">{{$t('login')}}</h4>
+                  <p>{{$t('login_welcome')}}</p>
                 </div>
 
                 <vs-tabs>
                   <vs-tab label="JWT">
-                    <login-jwt></login-jwt>
-                  </vs-tab>
+                    <div>
+                      <vs-input
+                        v-validate="'required|min:3'"
+                        data-vv-validate-on="blur"
+                        name="username"
+                        icon-no-border
+                        icon="icon icon-user"
+                        icon-pack="feather"
+                        :label-placeholder="$t('username')"
+                        v-model="username"
+                        class="w-full"/>
+                      <span class="text-danger text-sm">{{ errors.first('username') }}</span>
 
-                  <vs-tab label="Firebase">
-                    <login-firebase></login-firebase>
-                  </vs-tab>
+                      <vs-input
+                        data-vv-validate-on="blur"
+                        v-validate="'required|min:6|max:10'"
+                        type="password"
+                        name="password"
+                        icon-no-border
+                        icon="icon icon-lock"
+                        icon-pack="feather"
+                        :label-placeholder="$t('password')"
+                        v-model="password"
+                        class="w-full mt-6"/>
+                      <span class="text-danger text-sm">{{ errors.first('password') }}</span>
 
-                  <vs-tab label="Auth0">
-                    <login-auth0></login-auth0>
+                      <div class="flex flex-wrap justify-between mt-3 mb-3">
+                        <vs-button :disabled="!validateForm" @click="loginJWT">Login</vs-button>
+                      </div>
+                    </div>
                   </vs-tab>
                 </vs-tabs>
 
@@ -51,29 +64,66 @@
 
 
 <script>
-import LoginJwt from "./LoginJWT.vue"
-import LoginFirebase from "./LoginFirebase.vue"
-import LoginAuth0 from "./LoginAuth0.vue"
 
-export default {
-  components: {
-    LoginJwt,
-    LoginFirebase,
-    LoginAuth0
+  export default {
+    data() {
+      return {
+        username: '',
+        password: '',
+        checkbox_remember_me: false
+      }
+    },
+    computed: {
+      validateForm() {
+        return !this.errors.any() && this.username != '' && this.password != '';
+      },
+    },
+    methods: {
+      checkLogin() {
+        // If user is already logged in notify
+        if (this.$store.state.moduleAuth.isUserLoggedIn()) {
+
+          // Close animation if passed as payload
+          // this.$vs.loading.close()
+
+          this.$vs.notify({
+            title: 'Login Attempt',
+            text: 'You are already logged in!',
+            iconPack: 'feather',
+            icon: 'icon-alert-circle',
+            color: 'warning'
+          })
+
+          return false
+        }
+        return true
+      },
+      loginJWT() {
+        let vm = this;
+        if (!vm.checkLogin()) return
+        // Loading
+        vm.$vs.loading()
+
+        const payload = {
+            vm: vm,
+            userDetails: {
+              username: vm.username,
+              password: vm.password,
+            }
+          }
+        ;
+
+        vm.$store.dispatch('moduleAuth/loginJWT', payload)
+          .then(() => {
+            vm.$vs.loading.close()
+          })
+          .catch(error => {
+            vm.$helper.handleError(error, vm)
+            vm.$vs.loading.close()
+          })
+      },
+    }
   }
-}
+
 </script>
 
-<style lang="scss">
-.login-tabs-container {
-  min-height: 505px;
-
-  .con-tab {
-    padding-bottom: 14px;
-  }
-
-  .con-slot-tabs {
-    margin-top: 1rem;
-  }
-}
-</style>

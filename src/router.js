@@ -15,6 +15,7 @@
 
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from "@/store/store.js"
 
 Vue.use(Router)
 
@@ -49,6 +50,7 @@ const router = new Router({
               {title: 'Dashboard', url: '/dashboard/home', active: true}
             ],
             pageTitle: 'Dashboard',
+            authRequired: true,
           }
         },
         // =============================================================================
@@ -64,6 +66,7 @@ const router = new Router({
               {title: 'Captain'},
               {title: 'Captains', active: true},
             ],
+            authRequired: true,
             pageTitle: 'Captains',
           }
         },
@@ -79,6 +82,7 @@ const router = new Router({
               {title: 'Add Captain', active: true},
             ],
             pageTitle: 'Add Captain',
+            authRequired: true,
           }
         },
         {
@@ -93,6 +97,7 @@ const router = new Router({
               {title: 'Edit Captain', active: true},
             ],
             pageTitle: 'Edit Captain',
+            authRequired: true,
           }
         },
         // =============================================================================
@@ -110,6 +115,7 @@ const router = new Router({
               {title: 'Add Order', active: true},
             ],
             pageTitle: 'Add Order',
+            authRequired: true,
           }
         },
         // =============================================================================
@@ -126,6 +132,7 @@ const router = new Router({
               {title: 'Vehicles', active: true},
             ],
             pageTitle: 'Vehicles',
+            authRequired: true,
           }
         },
         {
@@ -140,6 +147,7 @@ const router = new Router({
               {title: 'Add Vehicle', active: true},
             ],
             pageTitle: 'Add Vehicle',
+            authRequired: true,
           }
         },
         {
@@ -154,6 +162,7 @@ const router = new Router({
               {title: 'Edit Vehicle', active: true},
             ],
             pageTitle: 'Edit Vehicle',
+            authRequired: true,
           }
         },
         // =============================================================================
@@ -170,6 +179,7 @@ const router = new Router({
               {title: 'Clients', active: true},
             ],
             pageTitle: 'Clients',
+            authRequired: true,
           }
         },
         {
@@ -184,6 +194,7 @@ const router = new Router({
               {title: 'Add Client', active: true},
             ],
             pageTitle: 'Add Client',
+            authRequired: true,
           }
         },
         {
@@ -198,6 +209,7 @@ const router = new Router({
               {title: 'Edit Client', active: true},
             ],
             pageTitle: 'Edit Clients',
+            authRequired: true,
           }
         },
         // =============================================================================
@@ -214,6 +226,7 @@ const router = new Router({
               {title: 'Coupons', active: true},
             ],
             pageTitle: 'Coupons',
+            authRequired: true,
           }
         },
         {
@@ -228,6 +241,7 @@ const router = new Router({
               {title: 'Add Coupon', active: true},
             ],
             pageTitle: 'Add Coupon',
+            authRequired: true,
           }
         },
         {
@@ -242,6 +256,7 @@ const router = new Router({
               {title: 'Edit Coupons', active: true},
             ],
             pageTitle: 'Edit Coupons',
+            authRequired: true,
           }
         },
         // =============================================================================
@@ -258,6 +273,7 @@ const router = new Router({
               {title: 'Admins', active: true},
             ],
             pageTitle: 'Admins',
+            authRequired: true,
           }
         },
         {
@@ -272,6 +288,7 @@ const router = new Router({
               {title: 'Add Admin', active: true},
             ],
             pageTitle: 'Add Admin',
+            authRequired: true,
           }
         },
         {
@@ -286,6 +303,7 @@ const router = new Router({
               {title: 'Edit Admin', active: true},
             ],
             pageTitle: 'Edit Admin',
+            authRequired: true,
           }
         },
         // =============================================================================
@@ -302,6 +320,7 @@ const router = new Router({
               {title: 'Roles', active: true},
             ],
             pageTitle: 'Roles',
+            authRequired: true,
           }
         },
         {
@@ -316,6 +335,7 @@ const router = new Router({
               {title: 'Add Role', active: true},
             ],
             pageTitle: 'Add Role',
+            authRequired: true,
           }
         },
         {
@@ -330,6 +350,7 @@ const router = new Router({
               {title: 'Edit Role', active: true},
             ],
             pageTitle: 'Edit Role',
+            authRequired: true,
           }
         },
         // =============================================================================
@@ -346,6 +367,7 @@ const router = new Router({
               {title: 'Main Settings', active: true},
             ],
             pageTitle: 'Main Settings',
+            authRequired: true,
           }
         },
       ],
@@ -365,7 +387,8 @@ const router = new Router({
           name: 'page-login',
           component: () => import('@/views/pages/login/Login.vue'),
           meta: {
-            rule: 'editor'
+            rule: 'editor',
+            authRequired: false,
           }
         },
       ]
@@ -387,6 +410,14 @@ router.afterEach(() => {
 })
 
 router.beforeEach((to, from, next) => {
+  // If auth required, check login. If login fails redirect to login page
+  if (to.meta.authRequired) {
+    console.log(store.state.moduleAuth.isUserLoggedIn())
+    if (!(store.state.moduleAuth.isUserLoggedIn())) {
+      router.push({name: 'page-login', query: {to: to.path}})
+    }
+  }
+
   next();
 });
 

@@ -1,19 +1,12 @@
-/*=========================================================================================
-  File Name: moduleCalendarActions.js
-  Description: Calendar Module Actions
-  ----------------------------------------------------------------------------------------
-
-==========================================================================================*/
-
 import axios from "@/axios.js"
 import requests from "@/requests.js"
 
 export default {
-  addCaptain({commit}, item) {
+  addCaptain({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(requests.ADD_CAPTAINS, {item: item})
+      axios.post(requests.ADD_CAPTAINS, {item: payload})
         .then((response) => {
-          commit('ADD_CAPTAIN', Object.assign(item, {id: response.data.id}))
+          commit('ADD_CAPTAIN', Object.assign(payload, {id: response.data.id}))
           resolve(response)
         })
         .catch((error) => {
@@ -37,9 +30,9 @@ export default {
         })
     })
   },
-  updateCaptain({commit}, item) {
+  updateCaptain({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(`${requests.UPDATE_CAPTAIN}/${item.id}`, {item: item})
+      axios.post(`${requests.UPDATE_CAPTAIN}/${payload.id}`, {item: payload})
         .then((response) => {
           commit('UPDATE_CAPTAIN', response.data)
           resolve(response)

@@ -27,7 +27,7 @@
 
         <!--<notification-drop-down />-->
 
-        <!--<profile-drop-down />-->
+        <profile-drop-down />
 
       </vs-navbar>
     </div>

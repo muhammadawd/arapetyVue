@@ -20,6 +20,10 @@ Vue.use(Vuesax)
 import axios from "./axios.js"
 Vue.prototype.$http = axios
 
+// helper
+import helper from "./filters/helper.js"
+Vue.prototype.$helper = helper
+
 // API Calls
 // import "./http/requests"
 

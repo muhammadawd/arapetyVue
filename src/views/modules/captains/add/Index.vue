@@ -5,7 +5,7 @@
       <div class="vx-row mb-6">
         <div class="vx-col w-full md:w-1/4 mb-2">
           <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('first_name')" name="first_name"
-                      :danger="errors.has('first_name')" val-icon-danger="close"
+                    :danger="errors.has('first_name')" val-icon-danger="close"
                     autocomplete="off" v-model=" dataModel.first_name"/>
           <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
         </div>
@@ -80,7 +80,7 @@
           <span class="text-danger text-sm" v-show="errors.has('notes')">{{ errors.first('notes') }}</span>
         </div>
         <div class="vx-col w-full">
-          <vs-button type="filled" size="small" @click.prevent="submitForm" class="mt-5 block">{{$t('add')}}</vs-button>
+          <vs-button type="filled" size="small" :disabled="$helper.validateFormErrors(this)" @click.prevent="submitForm" class="mt-5 block">{{$t('add')}}</vs-button>
         </div>
       </div>
     </form>
@@ -90,43 +90,9 @@
 
 <script>
   // For custom error message
-  import {Validator} from 'vee-validate'
   import vSelect from 'vue-select'
   import flatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
-
-
-  const dict = {
-    custom: {
-      first_name: {
-        required: 'Please enter your first name',
-        alpha: "Your first name may only contain alphabetic characters"
-      },
-      last_name: {
-        required: 'Please enter your last name',
-        alpha: "Your last name may only contain alphabetic characters"
-      },
-      username: {
-        required: 'Please enter your username',
-        alpha: "Your username may only contain alphabetic characters"
-      },
-      password: {
-        required: 'Please enter your password',
-      },
-      phone: {
-        required: 'Please enter your phone',
-        numeric: "Your phone may only contain numbers"
-      },
-      ssn: {
-        required: 'Please enter your ssn',
-        digits: 'Your ssn must be 14 digits',
-        numeric: "Your ssn may only contain numbers"
-      },
-    }
-  };
-
-  // register custom messages
-  // Validator.localize('en', dict);
 
   export default {
     data() {
@@ -153,11 +119,24 @@
       'v-select': vSelect, flatPickr
     },
     methods: {
+      addCaptain() {
+        let vm = this;
+        vm.$vs.loading()
+        let request_data = vm.dataModel;
+        let dispatch = this.$store.dispatch('moduleCaptain/addCaptain', request_data);
+        dispatch.then(() => {
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
       submitForm() {
-        this.$validator.validateAll().then(result => {
+        let vm = this;
+        vm.$validator.validateAll().then(result => {
           if (result) {
             // if form have no errors
-            alert("form submitted!");
+            vm.addCaptain();
           } else {
             // form have errors
           }

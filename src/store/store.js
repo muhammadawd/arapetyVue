@@ -9,6 +9,7 @@ import actions from "./actions"
 Vue.use(Vuex)
 
 import moduleCaptain from './captain/moduleCaptain.js'
+import moduleAuth from './auth/moduleAuth.js'
 
 
 export default new Vuex.Store({
@@ -18,6 +19,7 @@ export default new Vuex.Store({
   actions,
   modules: {
     moduleCaptain: moduleCaptain,
+    moduleAuth: moduleAuth,
   },
   strict: process.env.NODE_ENV !== 'production'
 })
