@@ -22,7 +22,7 @@
 
     <div>
 
-      <vs-table :data="vehicles">
+      <vs-table :data="coupons">
 
         <template slot="thead">
           <vs-th>#</vs-th>
@@ -38,12 +38,40 @@
         <template slot-scope="{data}">
           <slot v-for="(tr, indextr) in data" class="bg-white">
             <vs-tr class="bg-white">
-
+              <vs-td>
+                <vs-button size="small" color="primary" icon-pack="feather" icon="icon-edit"
+                           @click="$router.push({name:'edit-coupon',params:{id:tr.id}})">{{$t('edit')}}
+                </vs-button>
+              </vs-td>
+              <vs-td>
+                {{tr.code}}
+              </vs-td>
+              <vs-td>
+                {{tr.type}}
+              </vs-td>
+              <vs-td>
+                {{tr.value}}
+              </vs-td>
+              <vs-td>
+                {{tr.used_times}}
+              </vs-td>
+              <vs-td>
+                {{tr.expired_at}}
+              </vs-td>
+              <vs-td>
+                <div class="btn-group flex">
+                  <vs-button type="line" size="small" color="danger" icon-pack="feather" icon="icon-trash"
+                             @click="confirmDelete(tr.id)"></vs-button>
+                </div>
+              </vs-td>
             </vs-tr>
             <vs-tr class="tr-spacer"></vs-tr>
           </slot>
         </template>
       </vs-table>
+      <div class="grid-xs mt-2" v-if="pageTotal && currentx">
+        <vs-pagination :total="pageTotal" v-model="currentx" goto></vs-pagination>
+      </div>
 
     </div>
 
@@ -56,21 +84,68 @@
     data() {
       return {
         searchQuery: '',
-        vehicles: []
+        currentx: 1,
+        pageTotal: 0,
+        coupons: []
       }
     },
+    watch: {
+      currentx: function (n, o) {
+        this.getAllCoupons()
+      },
+    },
     methods: {
+      confirmDelete(id) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$t('look_out'),
+          text: vm.$t('are_sure'),
+          showCancelButton: true,
+          confirmButtonText: vm.$t('yes'),
+          cancelButtonText: vm.$t('no'),
+          buttonsStyling: true
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            vm.$vs.loading();
+            let dispatch = vm.$store.dispatch('moduleCoupon/removeCoupon', {ids: [id]});
+            dispatch.then(() => {
+              vm.vehicles = vm.$store.getters['moduleCoupon/getAllCoupons'];
+              vm.$vs.loading.close()
+            }).catch((error) => {
+              vm.$helper.handleError(error, vm);
+              vm.$vs.loading.close()
+            });
+            return;
+          }
+        });
+
+      },
+      getAllCoupons() {
+        let vm = this;
+        vm.$vs.loading();
+        let filters = vm.prepareFilters();
+        let dispatch = this.$store.dispatch('moduleCoupon/fetchCoupon', filters);
+        dispatch.then((response) => {
+          // response = response.data;
+          // vm.pageTotal = response.data.coupons.last_page;
+          vm.coupons = this.$store.getters['moduleCoupon/getAllCoupons'];
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
       prepareFilters() {
-        return {}
+        return {
+          limit: 20,
+          paginated: true,
+          page: this.currentx
+        }
       }
     },
     mounted() {
       let vm = this;
-      let filters = vm.prepareFilters();
-      // let dispatch = this.$store.dispatch('moduleCaptain/fetchCaptains', filters);
-      // dispatch.then(() => {
-      //   vm.captains = this.$store.getters['moduleCaptain/getAllCaptains'];
-      // });
+      vm.getAllCoupons();
     }
   }
 </script>

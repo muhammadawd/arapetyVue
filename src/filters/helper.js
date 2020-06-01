@@ -187,7 +187,7 @@ const helper = {
       if (error.response.status == 422) {
         let validationApi = error.response.data.data.validation_errors;
         for (let [key, value] of Object.entries(validationApi)) {
-          let msg = value[0]
+          let msg = value[0];
           vm.$validator.errors.add({
             field: key,
             msg: msg,
@@ -198,7 +198,7 @@ const helper = {
 
       // un authenticated
       if (error.response.status == 401) {
-        vm.$router.push({name: 'page-login'})
+        vm.$router.push({name: 'page-login'});
         return;
       }
 
@@ -292,5 +292,8 @@ const helper = {
   validateFormErrors(vm) {
     return vm.errors.any();
   },
+  getCurrentBranch() {
+    return 1;
+  }
 };
 export default helper;

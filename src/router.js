@@ -412,7 +412,7 @@ router.afterEach(() => {
 router.beforeEach((to, from, next) => {
   // If auth required, check login. If login fails redirect to login page
   if (to.meta.authRequired) {
-    console.log(store.state.moduleAuth.isUserLoggedIn())
+    // console.log(store.state.moduleAuth.isUserLoggedIn())
     if (!(store.state.moduleAuth.isUserLoggedIn())) {
       router.push({name: 'page-login', query: {to: to.path}})
     }

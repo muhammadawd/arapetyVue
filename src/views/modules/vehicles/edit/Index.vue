@@ -30,27 +30,57 @@
           <span class="text-danger text-sm" v-show="errors.has('vin')">{{ errors.first('vin') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
+          <label class="vs-input--label">{{$t('vehicle_class')}}</label>
+          <v-select label="title" :options="vehicleClasses" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                    v-model="dataModel.vehicle_class"/>
+          <span class="text-danger text-sm" v-show="errors.has('vehicle_class_id')">{{ errors.first('vehicle_class_id') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/2 mb-2">
+          <label class="vs-input--label">{{$t('vehicle_model')}}</label>
+          <multiselect v-model="vehicle_model"
+                       :options="vehicleBrands"
+                       :multiple="false"
+                       group-values="models"
+                       group-label="title"
+                       :group-select="false"
+                       :placeholder="$t('search')"
+                       track-by="id"
+                       label="title">
+            <template slot="singleLabel" slot-scope="props">
+              <span class="option__desc">
+                <span class="option__title">{{ props.option.$groupLabel ? props.option.$groupLabel : props.option.title }}</span>
+              </span>
+            </template>
+            <template slot="option" slot-scope="props">
+              <div class="flex">
+                <img class="option__image mr-2 ml-2" v-if="props.option.image" width="30" :src="props.option.image"
+                     alt="...">
+                <div class="option__desc">
+                  <span class="option__title">{{ props.option.$groupLabel ? props.option.$groupLabel : props.option.title }}</span>
+                  <!--<span class="option__small">{{ props }}</span>-->
+                </div>
+              </div>
+            </template>
+          </multiselect>
+          <span class="text-danger text-sm" v-show="errors.has('vehicle_model_id')">{{ errors.first('vehicle_model_id') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
           <label class="vs-input--label">{{$t('year')}}</label>
-          <v-select :label="$t('year')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+          <v-select :options="years" :dir="$vs.rtl ? 'rtl' : 'ltr'"
                     v-model="dataModel.year"/>
           <span class="text-danger text-sm" v-show="errors.has('year')">{{ errors.first('year') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <label class="vs-input--label">{{$t('vehicle_class')}}</label>
-          <v-select :label="$t('vehicle_class')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'"
-                    v-model="dataModel.vehicle_class_id"/>
-          <span class="text-danger text-sm" v-show="errors.has('vehicle_class_id')">{{ errors.first('vehicle_class_id') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
-          <label class="vs-input--label">{{$t('vehicle_model')}}</label>
-          <v-select :label="$t('vehicle_model')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'"
-                    v-model="dataModel.vehicle_model_id"/>
-          <span class="text-danger text-sm" v-show="errors.has('vehicle_model_id')">{{ errors.first('vehicle_model_id') }}</span>
-        </div>
-        <div class="vx-col w-full md:w-1/4 mb-2">
           <label class="vs-input--label">{{$t('license_exp')}}</label>
-          <flat-pickr class="vs-inputx vs-input--input normal" v-model="dataModel.license_exp"></flat-pickr>
+          <flat-pickr v-validate="'required'" class="vs-inputx vs-input--input normal" name="license_exp"
+                      v-model="dataModel.license_exp"></flat-pickr>
           <span class="text-danger text-sm" v-show="errors.has('license_exp')">{{ errors.first('license_exp') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <label class="vs-input--label">{{$t('status')}}</label>
+          <v-select label="name" :options="vehicleStatuses" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                    v-model="dataModel.status"/>
+          <span class="text-danger text-sm" v-show="errors.has('status_id')">{{ errors.first('status_id') }}</span>
         </div>
         <div class="vx-col w-full mb-2">
           <label class="vs-input--label">{{$t('notes')}}</label>
@@ -68,49 +98,20 @@
 
 
 <script>
-  // For custom error message
-  import {Validator} from 'vee-validate'
   import vSelect from 'vue-select'
   import flatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
 
-
-  const dict = {
-    custom: {
-      first_name: {
-        required: 'Please enter your first name',
-        alpha: "Your first name may only contain alphabetic characters"
-      },
-      last_name: {
-        required: 'Please enter your last name',
-        alpha: "Your last name may only contain alphabetic characters"
-      },
-      username: {
-        required: 'Please enter your username',
-        alpha: "Your username may only contain alphabetic characters"
-      },
-      password: {
-        required: 'Please enter your password',
-      },
-      phone: {
-        required: 'Please enter your phone',
-        numeric: "Your phone may only contain numbers"
-      },
-      ssn: {
-        required: 'Please enter your ssn',
-        digits: 'Your ssn must be 14 digits',
-        numeric: "Your ssn may only contain numbers"
-      },
-    }
-  };
-
-  // register custom messages
-  // Validator.localize('en', dict);
-
   export default {
     data() {
       return {
-        dataModel: {}
+        vehicleClasses: [],
+        vehicleBrands: [],
+        vehicleStatuses: [],
+        vehicle_model: null,
+        dataModel: {
+          branch_id: this.$helper.getCurrentBranch()
+        }
       }
     },
     components: {
@@ -121,12 +122,86 @@
         this.$validator.validateAll().then(result => {
           if (result) {
             // if form have no errors
-            alert("form submitted!");
+            this.updateVehicle()
           } else {
             // form have errors
           }
         })
+      },
+      updateVehicle() {
+        let vm = this;
+        vm.$vs.loading();
+        let request_data = vm.dataModel;
+        request_data.vehicle_model_id = vm.vehicle_model ? vm.vehicle_model.id : '';
+        request_data.status_id = request_data.status ? request_data.status.id : '';
+        request_data.vehicle_class_id = request_data.vehicle_class ? request_data.vehicle_class.id : '';
+        // delete request_data.vehicle_class;
+        // delete request_data.status;
+
+        let dispatch = this.$store.dispatch('moduleVehicle/updateVehicle', request_data);
+        dispatch.then(() => {
+          vm.$vs.loading.close()
+          vm.$helper.showMessage('success', vm)
+          vm.$router.push({name: 'all-vehicles'})
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+      getAllVehicleCommon() {
+        let vm = this;
+        vm.$vs.loading();
+        let dispatch = this.$store.dispatch('moduleCommon/fetchVehicleCommon', {});
+        dispatch.then(() => {
+          vm.vehicleBrands = this.$store.getters['moduleCommon/getAllVehicleBrands'];
+          vm.vehicleClasses = this.$store.getters['moduleCommon/getAllVehicleClasses'];
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+      getAllVehicleStatuses() {
+        let vm = this;
+        vm.$vs.loading();
+        let dispatch = this.$store.dispatch('moduleCommon/fetchStatuses', {});
+        dispatch.then(() => {
+          vm.vehicleStatuses = this.$store.getters['moduleCommon/getDriverStatuses'];
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+      findVehicle() {
+        let vm = this;
+        vm.$vs.loading();
+        let id = vm.$route.params.id;
+        let dispatch = this.$store.dispatch('moduleVehicle/findVehicle', {id: id});
+        dispatch.then((response) => {
+          response = response.data;
+          if (response.status) {
+            vm.dataModel = response.data.vehicle;
+            vm.vehicle_model = vm.dataModel.vehicle_model
+          }
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+    },
+    computed: {
+      years() {
+        const year = new Date().getFullYear()
+        return Array.from({length: year - 1990}, (value, index) => 1991 + index)
       }
     },
+    mounted() {
+      let vm = this;
+      vm.getAllVehicleCommon();
+      vm.getAllVehicleStatuses();
+      vm.findVehicle();
+    }
   }
 </script>

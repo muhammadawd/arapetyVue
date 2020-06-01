@@ -2,15 +2,11 @@ import axios from "@/axios.js"
 import requests from "@/requests.js"
 
 export default {
-  addCaptain({commit}, payload) {
+  addCoupon({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(requests.ADD_CAPTAINS, payload, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      axios.post(requests.ADD_COUPON, payload)
         .then((response) => {
-          commit('ADD_CAPTAIN', Object.assign(payload, {id: response.data.data.driver.id}))
+          commit('ADD_COUPON', Object.assign(payload, {id: response.data.data.coupon.id}))
           resolve(response)
         })
         .catch((error) => {
@@ -18,14 +14,14 @@ export default {
         })
     })
   },
-  fetchCaptains({commit}, filters) {
+  fetchCoupon({commit}, filters) {
     return new Promise((resolve, reject) => {
-      axios.get(requests.ALL_CAPTAINS, {
+      axios.get(requests.ALL_COUPON, {
         params: filters
       })
         .then((response) => {
           if (response.data.status) {
-            commit('SET_CAPTAINS', response.data.data.drivers.data)
+            commit('SET_COUPONS', response.data.data.coupons.data)
           }
           resolve(response)
         })
@@ -34,9 +30,9 @@ export default {
         })
     })
   },
-  findCaptain({commit}, payload) {
+  findCoupon({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.get(`${requests.FIND_CAPTAINS}/${payload.id}`, {item: payload})
+      axios.get(`${requests.FIND_COUPON}/${payload.id}`)
         .then((response) => {
           resolve(response)
         })
@@ -45,9 +41,9 @@ export default {
         })
     })
   },
-  updateCaptain({commit}, payload) {
+  updateCoupon({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(`${requests.UPDATE_CAPTAINS}`,payload)
+      axios.post(`${requests.UPDATE_COUPON}`, payload)
         .then((response) => {
           resolve(response)
         })
@@ -56,11 +52,11 @@ export default {
         })
     })
   },
-  removeCaptain({commit}, payload) {
+  removeCoupon({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(`${requests.DELETE_CAPTAINS}`, payload)
+      axios.post(`${requests.DELETE_COUPON}`, payload)
         .then((response) => {
-          commit('REMOVE_CAPTAIN', payload.ids)
+          commit('REMOVE_COUPON', payload.ids)
           resolve(response)
         })
         .catch((error) => {

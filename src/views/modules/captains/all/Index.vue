@@ -45,7 +45,11 @@
                 {{ tr.first_name }} {{ tr.last_name }}
               </vs-td>
               <vs-td>
-                {{tr.vehicle}}
+                <slot v-if="tr.vehicle">
+                  <div class="con-vs-chip ml-auto mr-4 vs-chip-light con-color">
+                    <span class="text-chip vs-chip--text">{{tr.vehicle.vehicle_key}}</span>
+                  </div>
+                </slot>
               </vs-td>
               <vs-td>
                 {{tr.license_end_date}}
@@ -55,7 +59,7 @@
                   <div class="con-btns-user flex items-center justify-between">
                     <div class="con-userx flex items-center justify-start">
                       <vs-avatar :badge="0" size="45px"
-                                 :src="`https://randomuser.me/api/portraits/men/${indextr+9}.jpg`"/>
+                                 :src="tr.image_path ? tr.image_path.path : require('@/assets/images/portrait/small/no_user.png')"/>
                       <span>{{ tr.username }}</span>
                     </div>
                   </div>
@@ -63,7 +67,8 @@
               </vs-td>
               <vs-td>
                 <div class="btn-group flex">
-                  <vs-button type="line" size="small" color="danger" icon-pack="feather" icon="icon-trash"></vs-button>
+                  <vs-button type="line" size="small" color="danger" icon-pack="feather" icon="icon-trash"
+                             @click="confirmDelete(tr.id)"></vs-button>
                 </div>
               </vs-td>
             </vs-tr>
@@ -71,6 +76,9 @@
           </slot>
         </template>
       </vs-table>
+      <div class="grid-xs mt-2" v-if="pageTotal && currentx">
+        <vs-pagination :total="pageTotal" v-model="currentx" goto></vs-pagination>
+      </div>
 
     </div>
   </div>
@@ -82,26 +90,68 @@
     data() {
       return {
         searchQuery: '',
+        currentx: 1,
+        pageTotal: 0,
         captains: []
       }
     },
+    watch: {
+      currentx: function (n, o) {
+        this.getAllCaptains()
+      },
+    },
     methods: {
+      confirmDelete(id) {
+        let vm = this;
+        vm.$swal({
+          title: vm.$t('look_out'),
+          text: vm.$t('are_sure'),
+          showCancelButton: true,
+          confirmButtonText: vm.$t('yes'),
+          cancelButtonText: vm.$t('no'),
+          buttonsStyling: true
+        }).then(function (result) {
+          if (result.isConfirmed) {
+            vm.$vs.loading();
+            let dispatch = vm.$store.dispatch('moduleCaptain/removeCaptain', {ids: [id]});
+            dispatch.then(() => {
+              vm.captains = vm.$store.getters['moduleCaptain/getAllCaptains'];
+              vm.$vs.loading.close()
+            }).catch((error) => {
+              vm.$helper.handleError(error, vm);
+              vm.$vs.loading.close()
+            });
+            return;
+          }
+        });
+
+      },
+      getAllCaptains() {
+        let vm = this;
+        vm.$vs.loading();
+        let filters = vm.prepareFilters();
+        let dispatch = this.$store.dispatch('moduleCaptain/fetchCaptains', filters);
+        dispatch.then((response) => {
+          response = response.data;
+          vm.pageTotal = response.data.drivers.last_page;
+          vm.captains = this.$store.getters['moduleCaptain/getAllCaptains'];
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
       prepareFilters() {
-        return {}
+        return {
+          limit: 20,
+          paginated: true,
+          page: this.currentx
+        }
       }
     },
     mounted() {
       let vm = this;
-      vm.$vs.loading()
-      let filters = vm.prepareFilters();
-      let dispatch = this.$store.dispatch('moduleCaptain/fetchCaptains', filters);
-      dispatch.then(() => {
-        vm.captains = this.$store.getters['moduleCaptain/getAllCaptains'];
-        vm.$vs.loading.close()
-      }).catch((error) => {
-        vm.$helper.handleError(error,vm);
-        vm.$vs.loading.close()
-      });
+      vm.getAllCaptains();
     }
   }
 </script>

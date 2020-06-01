@@ -6,11 +6,13 @@ import getters from "./getters"
 import mutations from "./mutations"
 import actions from "./actions"
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
-import moduleCaptain from './captain/moduleCaptain.js'
 import moduleAuth from './auth/moduleAuth.js'
-
+import moduleCommon from './common/moduleCommon.js'
+import moduleCaptain from './captain/moduleCaptain.js'
+import moduleVehicle from './vehicle/moduleVehicle.js'
+import moduleCoupon from './coupon/moduleCoupon.js'
 
 export default new Vuex.Store({
   getters,
@@ -18,8 +20,11 @@ export default new Vuex.Store({
   state,
   actions,
   modules: {
-    moduleCaptain: moduleCaptain,
     moduleAuth: moduleAuth,
+    moduleCommon: moduleCommon,
+    moduleCaptain: moduleCaptain,
+    moduleVehicle: moduleVehicle,
+    moduleCoupon: moduleCoupon,
   },
   strict: process.env.NODE_ENV !== 'production'
 })

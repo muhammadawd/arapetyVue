@@ -34,7 +34,7 @@
           <span class="text-danger text-sm" v-show="errors.has('username')">{{ errors.first('username') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required'" class="w-full" :label="$t('password')" name="password" type="password"
+          <vs-input class="w-full" :label="$t('password')" name="password" type="password"
                     :danger="errors.has('password')" val-icon-danger="close"
                     autocomplete="off" v-model="dataModel.password"/>
           <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
@@ -60,12 +60,14 @@
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
           <label class="vs-input--label">{{$t('status')}}</label>
-          <v-select :label="$t('status')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.status_id"/>
+          <v-select label="name" :options="driverStatuses" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                    v-model="dataModel.status"/>
           <span class="text-danger text-sm" v-show="errors.has('status_id')">{{ errors.first('status_id') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
           <label class="vs-input--label">{{$t('vehicle')}}</label>
-          <v-select :label="$t('vehicle')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.vehicle_id"/>
+          <v-select label="vehicle_key" :options="vehicles" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                    v-model="dataModel.vehicle"/>
           <span class="text-danger text-sm" v-show="errors.has('vehicle_id')">{{ errors.first('vehicle_id') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
@@ -73,14 +75,25 @@
           <flat-pickr class="vs-inputx vs-input--input normal" v-model="dataModel.license_end_date"></flat-pickr>
           <span class="text-danger text-sm" v-show="errors.has('license_end_date')">{{ errors.first('license_end_date') }}</span>
         </div>
-        <div class="vx-col w-full mb-2">
+        <div class="vx-col w-full md:w-1/4">
+          <label class="vs-input--label">{{$t('image')}}</label>
+          <input class="w-full vs-inputx vs-input--input normal" name="image" accept="image/*" ref="image"
+                 v-on:change="handleFileUpload()" autocomplete="off" type="file"/>
+          <span class="text-danger text-sm"
+                v-show="errors.has('image')">{{ errors.first('image') }}</span>
+          <a v-if="dataModel.image_path" :href="dataModel.image_path.path" target="_blank">{{$t('show_image')}}</a>
+        </div>
+        <div class="vx-col w-full md:w-3/4">
           <label class="vs-input--label">{{$t('notes')}}</label>
           <vs-textarea class="w-full" name="notes"
                        autocomplete="off" v-model="dataModel.notes"/>
           <span class="text-danger text-sm" v-show="errors.has('notes')">{{ errors.first('notes') }}</span>
+          <span class="text-danger text-sm" v-show="errors.has('branch_id')">{{ errors.first('branch_id') }}</span>
         </div>
-        <div class="vx-col w-full">
-          <vs-button type="filled" size="small" @click.prevent="submitForm" class="mt-5 block">{{$t('edit')}}</vs-button>
+        <div class="vx-col w-full mt-2">
+          <vs-button type="filled" size="small" :disabled="$helper.validateFormErrors(this)" @click.prevent="submitForm"
+                     class="mt-5 block">{{$t('edit')}}
+          </vs-button>
         </div>
       </div>
     </form>
@@ -90,62 +103,17 @@
 
 <script>
   // For custom error message
-  import {Validator} from 'vee-validate'
   import vSelect from 'vue-select'
   import flatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
 
-
-  const dict = {
-    custom: {
-      first_name: {
-        required: 'Please enter your first name',
-        alpha: "Your first name may only contain alphabetic characters"
-      },
-      last_name: {
-        required: 'Please enter your last name',
-        alpha: "Your last name may only contain alphabetic characters"
-      },
-      username: {
-        required: 'Please enter your username',
-        alpha: "Your username may only contain alphabetic characters"
-      },
-      password: {
-        required: 'Please enter your password',
-      },
-      phone: {
-        required: 'Please enter your phone',
-        numeric: "Your phone may only contain numbers"
-      },
-      ssn: {
-        required: 'Please enter your ssn',
-        digits: 'Your ssn must be 14 digits',
-        numeric: "Your ssn may only contain numbers"
-      },
-    }
-  };
-
-  // register custom messages
-  // Validator.localize('en', dict);
-
   export default {
     data() {
       return {
+        driverStatuses: [],
+        vehicles: [],
         dataModel: {
-          first_name: "",
-          last_name: "",
-          username: "",
-          password: "",
-          phone: "",
-          ssn: "",
-          age: "",
-          office_percent: 0,
-          max_cost: 0,
-          notes: "",
-          vehicle_id: "",
-          status_id: "",
-          branch_id: "",
-          license_end_date: "",
+          branch_id: this.$helper.getCurrentBranch()
         }
       }
     },
@@ -153,16 +121,90 @@
       'v-select': vSelect, flatPickr
     },
     methods: {
+      updateCaptain() {
+        let vm = this;
+        vm.$vs.loading()
+        let request_data = vm.dataModel;
+        request_data = JSON.parse(JSON.stringify(request_data));
+        request_data.status_id = request_data.status ? request_data.status.id : '';
+        request_data.vehicle_id = request_data.vehicle ? request_data.vehicle.id : '';
+        let form_data = new FormData();
+
+        for (let [key, value] of Object.entries(request_data)) {
+          form_data.append(key, (value != 'null' ? value : ''))
+        }
+
+        let dispatch = this.$store.dispatch('moduleCaptain/updateCaptain', form_data);
+        dispatch.then(() => {
+          vm.$vs.loading.close()
+          vm.$helper.showMessage('success', vm)
+          vm.$router.push({name: 'all-captains'})
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+      handleFileUpload() {
+        let vm = this;
+        vm.dataModel.image = vm.$refs.image.files[0];
+      },
       submitForm() {
-        this.$validator.validateAll().then(result => {
+        let vm = this;
+        vm.$validator.validateAll().then(result => {
           if (result) {
             // if form have no errors
-            alert("form submitted!");
+            vm.updateCaptain();
           } else {
             // form have errors
           }
         })
-      }
+      },
+      getAllDriverStatuses() {
+        let vm = this;
+        vm.$vs.loading();
+        let dispatch = this.$store.dispatch('moduleCommon/fetchStatuses', {});
+        dispatch.then(() => {
+          vm.driverStatuses = this.$store.getters['moduleCommon/getDriverStatuses'];
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+      getAllVehicles() {
+        let vm = this;
+        vm.$vs.loading();
+        let dispatch = this.$store.dispatch('moduleVehicle/fetchVehicles', {});
+        dispatch.then(() => {
+          vm.vehicles = this.$store.getters['moduleVehicle/getAllVehicles'];
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+      findCaptain() {
+        let vm = this;
+        vm.$vs.loading();
+        let id = vm.$route.params.id;
+        let dispatch = this.$store.dispatch('moduleCaptain/findCaptain', {id: id});
+        dispatch.then((response) => {
+          response = response.data;
+          if (response.status) {
+            vm.dataModel = response.data.driver;
+          }
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
     },
+    mounted() {
+      let vm = this;
+      vm.findCaptain();
+      vm.getAllDriverStatuses();
+      vm.getAllVehicles();
+    }
   }
 </script>

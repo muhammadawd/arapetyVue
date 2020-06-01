@@ -39,6 +39,20 @@ export default [
     items: [
       {
         url: null,
+        name: "vehicles",
+        icon: "TruckIcon",
+        i18n: "vehicles",
+        submenu: [
+          {
+            url: '/vehiclesModule/all-vehicles',
+            name: "vehicles",
+            slug: "all-vehicles",
+            i18n: "vehicles",
+          }
+        ]
+      },
+      {
+        url: null,
         name: "captain",
         icon: "UserIcon",
         i18n: "captain",
@@ -63,20 +77,6 @@ export default [
             slug: "all-orders",
             i18n: "orders",
           },
-        ]
-      },
-      {
-        url: null,
-        name: "vehicles",
-        icon: "TruckIcon",
-        i18n: "vehicles",
-        submenu: [
-          {
-            url: '/vehiclesModule/all-vehicles',
-            name: "vehicles",
-            slug: "all-vehicles",
-            i18n: "vehicles",
-          }
         ]
       },
       {

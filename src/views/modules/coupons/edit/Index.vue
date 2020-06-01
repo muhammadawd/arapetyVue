@@ -4,14 +4,15 @@
     <form>
       <div class="vx-row mb-6">
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required'" class="w-full" :label="$t('promo_code')" name="promo_code"
-                    :danger="errors.has('promo_code')" val-icon-danger="close"
-                    autocomplete="off" v-model=" dataModel.promo_code"/>
-          <span class="text-danger text-sm" v-show="errors.has('promo_code')">{{ errors.first('promo_code') }}</span>
+          <vs-input v-validate="'required'" class="w-full" :label="$t('promo_code')" name="code"
+                    :danger="errors.has('code')" val-icon-danger="close"
+                    autocomplete="off" v-model=" dataModel.code"/>
+          <span class="text-danger text-sm" v-show="errors.has('code')">{{ errors.first('code') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
           <label class="vs-input--label">{{$t('type')}}</label>
-          <v-select :label="$t('type')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.type"/>
+          <v-select :label="$t('label')" :options="types" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                    v-model="dataModel.type"/>
           <span class="text-danger text-sm" v-show="errors.has('type')">{{ errors.first('type') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
@@ -21,6 +22,12 @@
           <span class="text-danger text-sm" v-show="errors.has('value')">{{ errors.first('value') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input class="w-full" :label="$t('max_cost')" name="max_cost"
+                    :danger="errors.has('max_cost')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.max_cost"/>
+          <span class="text-danger text-sm" v-show="errors.has('max_cost')">{{ errors.first('max_cost') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-1/4 mb-2">
           <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('used_times')" name="used_times"
                     :danger="errors.has('used_times')" val-icon-danger="close"
                     autocomplete="off" v-model="dataModel.used_times"/>
@@ -28,11 +35,13 @@
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
           <label class="vs-input--label">{{$t('expired_at')}}</label>
-          <flat-pickr class="vs-inputx vs-input--input normal" v-model="dataModel.expired_at"></flat-pickr>
+          <flat-pickr v-validate="'required'" name="expired_at" class="vs-inputx vs-input--input normal"
+                      v-model="dataModel.expired_at"></flat-pickr>
           <span class="text-danger text-sm" v-show="errors.has('expired_at')">{{ errors.first('expired_at') }}</span>
         </div>
         <div class="vx-col w-full">
-          <vs-button type="filled" size="small" @click.prevent="submitForm" class="mt-5 block">{{$t('edit')}}</vs-button>
+          <vs-button type="filled" size="small" @click.prevent="submitForm" class="mt-5 block">{{$t('edit')}}
+          </vs-button>
         </div>
       </div>
     </form>
@@ -42,79 +51,81 @@
 
 <script>
   // For custom error message
-  import {Validator} from 'vee-validate'
   import vSelect from 'vue-select'
   import flatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
 
 
-  const dict = {
-    custom: {
-      first_name: {
-        required: 'Please enter your first name',
-        alpha: "Your first name may only contain alphabetic characters"
-      },
-      last_name: {
-        required: 'Please enter your last name',
-        alpha: "Your last name may only contain alphabetic characters"
-      },
-      username: {
-        required: 'Please enter your username',
-        alpha: "Your username may only contain alphabetic characters"
-      },
-      password: {
-        required: 'Please enter your password',
-      },
-      phone: {
-        required: 'Please enter your phone',
-        numeric: "Your phone may only contain numbers"
-      },
-      ssn: {
-        required: 'Please enter your ssn',
-        digits: 'Your ssn must be 14 digits',
-        numeric: "Your ssn may only contain numbers"
-      },
-    }
-  };
-
-  // register custom messages
-  // Validator.localize('en', dict);
-
   export default {
     data() {
       return {
-        dataModel: {
-          first_name: "",
-          last_name: "",
-          username: "",
-          password: "",
-          phone: "",
-          ssn: "",
-          age: "",
-          office_percent: 0,
-          max_cost: 0,
-          notes: "",
-          vehicle_id: "",
-          status_id: "",
-          branch_id: "",
-          license_end_date: "",
-        }
+        // types: [
+        //   {label: 'value', value: 'value'},
+        //   {label: 'percent', value: 'percent'},
+        //   {label: 'fixed', value: 'fixed'},
+        // ],
+        types: ['value', 'percent', 'fixed'],
+        dataModel: {}
       }
-    },
+    }
+    ,
     components: {
-      'v-select': vSelect, flatPickr
-    },
+      'v-select':
+      vSelect, flatPickr
+    }
+    ,
+    mounted() {
+      this.findCoupon()
+    }
+    ,
     methods: {
+      editCoupon() {
+        let vm = this;
+        vm.$vs.loading()
+        let request_data = vm.dataModel;
+        // request_data.type = request_data.type_object ? request_data.type_object.value : '';
+
+        let dispatch = this.$store.dispatch('moduleCoupon/updateCoupon', request_data);
+        dispatch.then(() => {
+          vm.$vs.loading.close()
+          vm.$helper.showMessage('success', vm)
+          vm.$router.push({name: 'all-coupons'})
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      }
+      ,
       submitForm() {
         this.$validator.validateAll().then(result => {
           if (result) {
             // if form have no errors
-            alert("form submitted!");
+            this.editCoupon();
           } else {
             // form have errors
           }
         })
       }
-    },
+      ,
+      findCoupon() {
+        let vm = this;
+        vm.$vs.loading();
+        let id = vm.$route.params.id;
+        let dispatch = this.$store.dispatch('moduleCoupon/findCoupon', {id: id});
+        dispatch.then((response) => {
+          response = response.data;
+          if (response.status) {
+            vm.dataModel = response.data.coupon;
+            vm.dataModel.type_object = response.data.coupon.type;
+          }
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      }
+      ,
+    }
+    ,
   }
 </script>

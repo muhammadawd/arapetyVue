@@ -2,15 +2,11 @@ import axios from "@/axios.js"
 import requests from "@/requests.js"
 
 export default {
-  addCaptain({commit}, payload) {
+  addVehicle({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(requests.ADD_CAPTAINS, payload, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      axios.post(requests.ADD_VEHICLES, payload)
         .then((response) => {
-          commit('ADD_CAPTAIN', Object.assign(payload, {id: response.data.data.driver.id}))
+          commit('ADD_VEHICLE', Object.assign(payload, {id: response.data.data.vehicle.id}))
           resolve(response)
         })
         .catch((error) => {
@@ -18,15 +14,13 @@ export default {
         })
     })
   },
-  fetchCaptains({commit}, filters) {
+  fetchVehicles({commit}, filters) {
     return new Promise((resolve, reject) => {
-      axios.get(requests.ALL_CAPTAINS, {
+      axios.get(requests.ALL_VEHICLES, {
         params: filters
       })
         .then((response) => {
-          if (response.data.status) {
-            commit('SET_CAPTAINS', response.data.data.drivers.data)
-          }
+          commit('SET_VEHICLES', response.data.data.vehicles.data)
           resolve(response)
         })
         .catch((error) => {
@@ -34,9 +28,9 @@ export default {
         })
     })
   },
-  findCaptain({commit}, payload) {
+  findVehicle({commit}, filters) {
     return new Promise((resolve, reject) => {
-      axios.get(`${requests.FIND_CAPTAINS}/${payload.id}`, {item: payload})
+      axios.get(requests.FIND_VEHICLES + `/${filters.id}`)
         .then((response) => {
           resolve(response)
         })
@@ -45,9 +39,9 @@ export default {
         })
     })
   },
-  updateCaptain({commit}, payload) {
+  updateVehicle({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(`${requests.UPDATE_CAPTAINS}`,payload)
+      axios.post(requests.UPDATE_VEHICLES, payload)
         .then((response) => {
           resolve(response)
         })
@@ -56,11 +50,11 @@ export default {
         })
     })
   },
-  removeCaptain({commit}, payload) {
+  removeVehicle({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(`${requests.DELETE_CAPTAINS}`, payload)
+      axios.post(`${requests.DELETE_VEHICLES}`, payload)
         .then((response) => {
-          commit('REMOVE_CAPTAIN', payload.ids)
+          commit('REMOVE_VEHICLE', payload.ids)
           resolve(response)
         })
         .catch((error) => {

@@ -60,12 +60,14 @@
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
           <label class="vs-input--label">{{$t('status')}}</label>
-          <v-select :label="$t('status')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.status_id"/>
+          <v-select label="name" :options="driverStatuses" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                    v-model="dataModel.status"/>
           <span class="text-danger text-sm" v-show="errors.has('status_id')">{{ errors.first('status_id') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
           <label class="vs-input--label">{{$t('vehicle')}}</label>
-          <v-select :label="$t('vehicle')" :options="[]" :dir="$vs.rtl ? 'rtl' : 'ltr'" v-model="dataModel.vehicle_id"/>
+          <v-select label="vehicle_key" :options="vehicles" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                    v-model="dataModel.vehicle"/>
           <span class="text-danger text-sm" v-show="errors.has('vehicle_id')">{{ errors.first('vehicle_id') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
@@ -73,14 +75,24 @@
           <flat-pickr class="vs-inputx vs-input--input normal" v-model="dataModel.license_end_date"></flat-pickr>
           <span class="text-danger text-sm" v-show="errors.has('license_end_date')">{{ errors.first('license_end_date') }}</span>
         </div>
-        <div class="vx-col w-full mb-2">
+        <div class="vx-col w-full md:w-1/4">
+          <label class="vs-input--label">{{$t('image')}}</label>
+          <input class="w-full vs-inputx vs-input--input normal" name="image" accept="image/*" ref="image"
+                 v-on:change="handleFileUpload()" autocomplete="off" type="file"/>
+          <span class="text-danger text-sm"
+                v-show="errors.has('image')">{{ errors.first('image') }}</span>
+        </div>
+        <div class="vx-col w-full md:w-3/4">
           <label class="vs-input--label">{{$t('notes')}}</label>
           <vs-textarea class="w-full" name="notes"
                        autocomplete="off" v-model="dataModel.notes"/>
           <span class="text-danger text-sm" v-show="errors.has('notes')">{{ errors.first('notes') }}</span>
+          <span class="text-danger text-sm" v-show="errors.has('branch_id')">{{ errors.first('branch_id') }}</span>
         </div>
-        <div class="vx-col w-full">
-          <vs-button type="filled" size="small" :disabled="$helper.validateFormErrors(this)" @click.prevent="submitForm" class="mt-5 block">{{$t('add')}}</vs-button>
+        <div class="vx-col w-full mt-2">
+          <vs-button type="filled" size="small" :disabled="$helper.validateFormErrors(this)" @click.prevent="submitForm"
+                     class="mt-5 block">{{$t('add')}}
+          </vs-button>
         </div>
       </div>
     </form>
@@ -97,21 +109,10 @@
   export default {
     data() {
       return {
+        driverStatuses: [],
+        vehicles: [],
         dataModel: {
-          first_name: "",
-          last_name: "",
-          username: "",
-          password: "",
-          phone: "",
-          ssn: "",
-          age: "",
-          office_percent: 0,
-          max_cost: 0,
-          notes: "",
-          vehicle_id: "",
-          status_id: "",
-          branch_id: "",
-          license_end_date: "",
+          branch_id: this.$helper.getCurrentBranch()
         }
       }
     },
@@ -123,13 +124,29 @@
         let vm = this;
         vm.$vs.loading()
         let request_data = vm.dataModel;
-        let dispatch = this.$store.dispatch('moduleCaptain/addCaptain', request_data);
+        request_data.status_id = request_data.status ? request_data.status.id : '';
+        request_data.vehicle_id = request_data.vehicle ? request_data.vehicle.id : '';
+        delete request_data.status;
+        delete request_data.vehicle;
+        let form_data = new FormData();
+
+        for (let [key, value] of Object.entries(request_data)) {
+          form_data.append(key, value)
+        }
+
+        let dispatch = this.$store.dispatch('moduleCaptain/addCaptain', form_data);
         dispatch.then(() => {
           vm.$vs.loading.close()
+          vm.$helper.showMessage('success', vm)
+          vm.$router.push({name: 'all-captains'})
         }).catch((error) => {
           vm.$helper.handleError(error, vm);
           vm.$vs.loading.close()
         });
+      },
+      handleFileUpload() {
+        let vm = this;
+        vm.dataModel.image = vm.$refs.image.files[0];
       },
       submitForm() {
         let vm = this;
@@ -141,7 +158,36 @@
             // form have errors
           }
         })
-      }
+      },
+      getAllDriverStatuses() {
+        let vm = this;
+        vm.$vs.loading();
+        let dispatch = this.$store.dispatch('moduleCommon/fetchStatuses', {});
+        dispatch.then(() => {
+          vm.driverStatuses = this.$store.getters['moduleCommon/getDriverStatuses'];
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+      getAllVehicles() {
+        let vm = this;
+        vm.$vs.loading();
+        let dispatch = this.$store.dispatch('moduleVehicle/fetchVehicles', {});
+        dispatch.then(() => {
+          vm.vehicles = this.$store.getters['moduleVehicle/getAllVehicles'];
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
     },
+    mounted() {
+      let vm = this;
+      vm.getAllDriverStatuses();
+      vm.getAllVehicles();
+    }
   }
 </script>

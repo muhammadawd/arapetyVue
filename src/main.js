@@ -18,10 +18,12 @@ Vue.use(Vuesax)
 
 // axios
 import axios from "./axios.js"
+
 Vue.prototype.$http = axios
 
 // helper
 import helper from "./filters/helper.js"
+
 Vue.prototype.$helper = helper
 
 // API Calls
@@ -33,6 +35,23 @@ import '../themeConfig.js'
 // Globally Registered Components
 import './globalComponents.js'
 
+// sweet alert 2
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+
+Vue.use(VueSweetalert2);
+
+// register globally multiselect
+import Multiselect from 'vue-multiselect';
+import 'vue-multiselect/dist/vue-multiselect.min.css';
+
+Vue.component('multiselect', Multiselect)
+
+// lodash
+import VueLodash from 'vue-lodash'
+import lodash from 'lodash'
+
+Vue.use(VueLodash, {name: 'custom', lodash: lodash});
 
 // Styles: SCSS
 import './assets/scss/main.scss'
@@ -60,6 +79,7 @@ import './filters/filters'
 
 // Clipboard
 import VueClipboard from 'vue-clipboard2'
+
 Vue.use(VueClipboard);
 
 
@@ -71,21 +91,24 @@ Vue.use(VueClipboard);
 
 // VeeValidate
 import VeeValidate from 'vee-validate';
+
 Vue.use(VeeValidate);
 
 
 // Google Maps
 import * as VueGoogleMaps from 'vue2-google-maps'
+
 Vue.use(VueGoogleMaps, {
-    load: {
-        // Add your API key here
-        key: 'YOUR_API_KEY',
-        libraries: 'places', // This is required if you use the Auto complete plug-in
-    },
+  load: {
+    // Add your API key here
+    key: 'YOUR_API_KEY',
+    libraries: 'places', // This is required if you use the Auto complete plug-in
+  },
 })
 
 // Vuejs - Vue wrapper for hammerjs
-import { VueHammer } from 'vue2-hammer'
+import {VueHammer} from 'vue2-hammer'
+
 Vue.use(VueHammer)
 
 
@@ -106,9 +129,9 @@ require('./assets/css/iconfont.css')
 Vue.config.productionTip = false
 
 new Vue({
-    router,
-    store,
-    i18n,
-    // acl,
-    render: h => h(App)
+  router,
+  store,
+  i18n,
+  // acl,
+  render: h => h(App)
 }).$mount('#app')

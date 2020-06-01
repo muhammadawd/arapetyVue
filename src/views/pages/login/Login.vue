@@ -84,7 +84,7 @@
         if (this.$store.state.moduleAuth.isUserLoggedIn()) {
 
           // Close animation if passed as payload
-          // this.$vs.loading.close()
+          this.$vs.loading.close()
 
           this.$vs.notify({
             title: 'Login Attempt',
