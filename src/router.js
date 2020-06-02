@@ -213,6 +213,53 @@ const router = new Router({
           }
         },
         // =============================================================================
+        // Branches Routes
+        // =============================================================================
+        {
+          path: '/branchesModule/all-branches',
+          name: 'all-branches',
+          component: () => import('./views/modules/branches/all/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Branches'},
+              {title: 'Branches', active: true},
+            ],
+            pageTitle: 'Branches',
+            authRequired: true,
+          }
+        },
+        {
+          path: '/branchesModule/add-branch',
+          name: 'add-branch',
+          component: () => import('./views/modules/branches/add/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Branches'},
+              {title: 'Branches'},
+              {title: 'Add Branch', active: true},
+            ],
+            pageTitle: 'Add Branch',
+            authRequired: true,
+          }
+        },
+        {
+          path: '/branchesModule/edit-branch/:id',
+          name: 'edit-branch',
+          component: () => import('./views/modules/branches/edit/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Branches'},
+              {title: 'Branches'},
+              {title: 'Edit Branches', active: true},
+            ],
+            pageTitle: 'Edit Branches',
+            authRequired: true,
+          }
+        },
+        // =============================================================================
         // Coupons Routes
         // =============================================================================
         {

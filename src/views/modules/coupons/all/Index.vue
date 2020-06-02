@@ -2,19 +2,27 @@
   <div id="ag-grid-demo">
     <vx-card>
       <vs-row>
-        <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="12">
+        <vs-col vs-type="flex" vs-justify="flex-start" vs-align="center" vs-w="6">
+          <div class="vx-row w-full  mb-6">
+            <div class="vx-col w-full md:w-1/2 mb-2">
+              <vs-input class="w-full" :label="$t('search')" name="search" @keyup.enter="submitFilter()"
+                        autocomplete="off" v-model="query"/>
+            </div>
+          </div>
+        </vs-col>
+        <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="6">
           <div class="btn-group flex">
             <vs-button size="small" type="line" color="primary" icon-pack="feather" icon="icon-plus"
                        @click="$router.push({name:'add-coupon'})">{{$t('add')}}
             </vs-button>
-            <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather"
+            <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather"  @click="submitFilter()"
                        icon="icon-search">
               {{$t('filter')}}
             </vs-button>
-            <vs-button size="small" type="line" color="success" icon-pack="feather"
-                       icon="icon-file">
-              {{$t('upload_file')}}
-            </vs-button>
+            <!--<vs-button size="small" type="line" color="success" icon-pack="feather"-->
+                       <!--icon="icon-file">-->
+              <!--{{$t('upload_file')}}-->
+            <!--</vs-button>-->
           </div>
         </vs-col>
       </vs-row>
@@ -83,7 +91,7 @@
     components: {},
     data() {
       return {
-        searchQuery: '',
+        query: '',
         currentx: 1,
         pageTotal: 0,
         coupons: []
@@ -109,7 +117,7 @@
             vm.$vs.loading();
             let dispatch = vm.$store.dispatch('moduleCoupon/removeCoupon', {ids: [id]});
             dispatch.then(() => {
-              vm.vehicles = vm.$store.getters['moduleCoupon/getAllCoupons'];
+              vm.coupons = vm.$store.getters['moduleCoupon/getAllCoupons'];
               vm.$vs.loading.close()
             }).catch((error) => {
               vm.$helper.handleError(error, vm);
@@ -135,10 +143,15 @@
           vm.$vs.loading.close()
         });
       },
+      submitFilter() {
+        this.currentx = 1;
+        this.getAllCoupons();
+      },
       prepareFilters() {
         return {
           limit: 20,
           paginated: true,
+          query: this.query,
           page: this.currentx
         }
       }

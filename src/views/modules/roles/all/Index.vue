@@ -46,7 +46,7 @@
     components: {},
     data() {
       return {
-        searchQuery: '',
+        query : '',
         vehicles: []
       }
     },

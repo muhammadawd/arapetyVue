@@ -2,12 +2,20 @@
   <div id="ag-grid-demo">
     <vx-card>
       <vs-row>
-        <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="12">
+        <vs-col vs-type="flex" vs-justify="flex-start" vs-align="center" vs-w="6">
+          <div class="vx-row w-full  mb-6">
+            <div class="vx-col w-full md:w-1/2 mb-2">
+              <vs-input class="w-full" :label="$t('search')" name="search" @keyup.enter="submitFilter()"
+                        autocomplete="off" v-model="query"/>
+            </div>
+          </div>
+        </vs-col>
+        <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="6">
           <div class="btn-group flex">
             <vs-button size="small" type="line" color="primary" icon-pack="feather" icon="icon-plus"
                        @click="$router.push({name:'add-captain'})">{{$t('add')}}
             </vs-button>
-            <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather"
+            <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather" @click="submitFilter()"
                        icon="icon-search">
               {{$t('filter')}}
             </vs-button>
@@ -89,7 +97,7 @@
     components: {},
     data() {
       return {
-        searchQuery: '',
+        query: '',
         currentx: 1,
         pageTotal: 0,
         captains: []
@@ -141,10 +149,15 @@
           vm.$vs.loading.close()
         });
       },
+      submitFilter() {
+        this.currentx = 1;
+        this.getAllCaptains()
+      },
       prepareFilters() {
         return {
           limit: 20,
           paginated: true,
+          query: this.query,
           page: this.currentx
         }
       }

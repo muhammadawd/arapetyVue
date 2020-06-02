@@ -28,4 +28,16 @@ export default {
   FIND_COUPON: `/coupon/find`,
   UPDATE_COUPON: '/coupon/update',
   DELETE_COUPON: '/coupon/delete',
+
+  ADD_USER: '/user/create',
+  ALL_USER: `/user`,
+  FIND_USER: `/user/find`,
+  UPDATE_USER: '/user/update',
+  DELETE_USER: '/user/delete',
+
+  ADD_BRANCH: '/branch/create',
+  ALL_BRANCH: `/branch`,
+  FIND_BRANCH: `/branch`,
+  UPDATE_BRANCH: '/branch/update',
+  DELETE_BRANCH: '/branch/delete',
 }

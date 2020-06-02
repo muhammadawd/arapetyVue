@@ -67,20 +67,6 @@ export default [
       },
       {
         url: null,
-        name: "orders",
-        icon: "LifeBuoyIcon",
-        i18n: "orders",
-        submenu: [
-          {
-            url: '/ordersModule/all-orders',
-            name: "orders",
-            slug: "all-orders",
-            i18n: "orders",
-          },
-        ]
-      },
-      {
-        url: null,
         name: "clients",
         icon: "UsersIcon",
         i18n: "clients",
@@ -107,6 +93,22 @@ export default [
           }
         ]
       },
+      {
+        url: null,
+        name: "orders",
+        icon: "LifeBuoyIcon",
+        i18n: "orders",
+        tag: 'لم ينتهي',
+        tagColor: 'red',
+        submenu: [
+          {
+            url: '/ordersModule/all-orders',
+            name: "orders",
+            slug: "all-orders",
+            i18n: "orders",
+          },
+        ]
+      },
     ],
   },
   {
@@ -119,6 +121,8 @@ export default [
         name: "settings",
         icon: "SettingsIcon",
         i18n: "settings",
+        tag: 'لم ينتهي',
+        tagColor: 'red',
         submenu: [
           {
             url: '/settingsModule/main_settings',
@@ -127,17 +131,41 @@ export default [
             i18n: "main_settings",
           },
           {
-            url: '/adminsModule/all-admins',
-            name: "admins",
-            slug: "all-admins",
-            i18n: "admins",
-          },
-          {
             url: '/rolesModule/all-roles',
             name: "roles",
             slug: "all-roles",
             i18n: "roles",
           }
+        ]
+      },
+      {
+        url: null,
+        name: "branches",
+        icon: "GitBranchIcon",
+        i18n: "branches",
+        submenu: [
+          {
+            url: '/branchesModule/all-branches',
+            name: "branches",
+            slug: "all-branches",
+            i18n: "branches",
+          }
+        ]
+      },
+      {
+        url: null,
+        name: "admins",
+        icon: "UsersIcon",
+        i18n: "admins",
+        tag: 'لم ينتهي',
+        tagColor: 'red',
+        submenu: [
+          {
+            url: '/adminsModule/all-admins',
+            name: "admins",
+            slug: "all-admins",
+            i18n: "admins",
+          },
         ]
       },
     ]

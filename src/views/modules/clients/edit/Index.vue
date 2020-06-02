@@ -4,16 +4,16 @@
     <form>
       <div class="vx-row mb-6">
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('first_name')" name="first_name"
-                    :danger="errors.has('first_name')" val-icon-danger="close"
-                    autocomplete="off" v-model=" dataModel.first_name"/>
-          <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
+          <vs-input v-validate="'required'" class="w-full" :label="$t('name')" name="name"
+                    :danger="errors.has('name')" val-icon-danger="close"
+                    autocomplete="off" v-model=" dataModel.name"/>
+          <span class="text-danger text-sm" v-show="errors.has('name')">{{ errors.first('name') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('last_name')" name="last_name"
-                    :danger="errors.has('last_name')" val-icon-danger="close"
-                    autocomplete="off" v-model="dataModel.last_name"/>
-          <span class="text-danger text-sm" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
+          <label class="vs-input--label">{{$t('gender')}}</label>
+          <v-select :options="genders" :dir="$vs.rtl ? 'rtl' : 'ltr'"
+                    v-model="dataModel.gender"/>
+          <span class="text-danger text-sm" v-show="errors.has('gender')">{{ errors.first('gender') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
           <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('phone')" name="phone"
@@ -27,11 +27,11 @@
                     autocomplete="off" v-model="dataModel.email"/>
           <span class="text-danger text-sm" v-show="errors.has('email')">{{ errors.first('email') }}</span>
         </div>
-        <div class="vx-col w-full mb-2">
-          <label class="vs-input--label">{{$t('address')}}</label>
-          <vs-textarea class="w-full" name="notes"
-                       autocomplete="off" v-model="dataModel.notes"/>
-          <span class="text-danger text-sm" v-show="errors.has('notes')">{{ errors.first('notes') }}</span>
+        <div class="vx-col w-full md:w-1/4 mb-2">
+          <vs-input   class="w-full" :label="$t('password')" name="password" type="password"
+                    :danger="errors.has('password')" val-icon-danger="close"
+                    autocomplete="off" v-model="dataModel.password"/>
+          <span class="text-danger text-sm" v-show="errors.has('password')">{{ errors.first('password') }}</span>
         </div>
         <div class="vx-col w-full">
           <vs-button type="filled" size="small" @click.prevent="submitForm" class="mt-5 block">{{$t('edit')}}</vs-button>
@@ -44,79 +44,65 @@
 
 <script>
   // For custom error message
-  import {Validator} from 'vee-validate'
   import vSelect from 'vue-select'
   import flatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
 
-
-  const dict = {
-    custom: {
-      first_name: {
-        required: 'Please enter your first name',
-        alpha: "Your first name may only contain alphabetic characters"
-      },
-      last_name: {
-        required: 'Please enter your last name',
-        alpha: "Your last name may only contain alphabetic characters"
-      },
-      username: {
-        required: 'Please enter your username',
-        alpha: "Your username may only contain alphabetic characters"
-      },
-      password: {
-        required: 'Please enter your password',
-      },
-      phone: {
-        required: 'Please enter your phone',
-        numeric: "Your phone may only contain numbers"
-      },
-      ssn: {
-        required: 'Please enter your ssn',
-        digits: 'Your ssn must be 14 digits',
-        numeric: "Your ssn may only contain numbers"
-      },
-    }
-  };
-
-  // register custom messages
-  // Validator.localize('en', dict);
-
   export default {
     data() {
       return {
-        dataModel: {
-          first_name: "",
-          last_name: "",
-          username: "",
-          password: "",
-          phone: "",
-          ssn: "",
-          age: "",
-          office_percent: 0,
-          max_cost: 0,
-          notes: "",
-          vehicle_id: "",
-          status_id: "",
-          branch_id: "",
-          license_end_date: "",
-        }
+        genders: ['male', 'female'],
+        dataModel: {}
       }
     },
     components: {
-      'v-select': vSelect,flatPickr
+      'v-select': vSelect, flatPickr
     },
     methods: {
+      findClient() {
+        let vm = this;
+        vm.$vs.loading();
+        let id = vm.$route.params.id;
+        let dispatch = this.$store.dispatch('moduleClient/findClient', {id: id});
+        dispatch.then((response) => {
+          response = response.data;
+          if (response.status) {
+            vm.dataModel = response.data.user;
+          }
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
+      updateClient() {
+        let vm = this;
+        vm.$vs.loading()
+        let request_data = vm.dataModel;
+
+        let dispatch = this.$store.dispatch('moduleClient/updateClient', request_data);
+        dispatch.then(() => {
+          vm.$vs.loading.close()
+          vm.$helper.showMessage('success', vm)
+          vm.$router.push({name: 'all-clients'})
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+      },
       submitForm() {
         this.$validator.validateAll().then(result => {
           if (result) {
             // if form have no errors
-            alert("form submitted!");
+            this.updateClient();
           } else {
             // form have errors
           }
         })
       }
     },
+    mounted() {
+      this.findClient()
+    }
   }
 </script>

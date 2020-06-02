@@ -105,8 +105,7 @@
             // form have errors
           }
         })
-      }
-      ,
+      },
       findCoupon() {
         let vm = this;
         vm.$vs.loading();
@@ -116,7 +115,6 @@
           response = response.data;
           if (response.status) {
             vm.dataModel = response.data.coupon;
-            vm.dataModel.type_object = response.data.coupon.type;
           }
           vm.$vs.loading.close()
         }).catch((error) => {
@@ -124,8 +122,6 @@
           vm.$vs.loading.close()
         });
       }
-      ,
     }
-    ,
   }
 </script>

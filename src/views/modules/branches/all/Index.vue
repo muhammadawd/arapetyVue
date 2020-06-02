@@ -12,8 +12,8 @@
         </vs-col>
         <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="6">
           <div class="btn-group flex">
-            <vs-button size="small" type="line" color="primary" icon-pack="feather" icon="icon-plus"
-                       @click="$router.push({name:'add-vehicle'})">{{$t('add')}}
+            <vs-button size="small" type="line" color="primary" icon-pack="feather" icon="icon-plus" class="mb-0"
+                       @click="$router.push({name:'add-branch'})">{{$t('add')}}
             </vs-button>
             <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather" @click="submitFilter()"
                        icon="icon-search">
@@ -26,36 +26,25 @@
 
     <div>
 
-      <vs-table :data="vehicles">
+      <vs-table :data="branches">
 
         <template slot="thead">
           <vs-th>#</vs-th>
-          <vs-th>{{$t('vehicle_class')}}</vs-th>
-          <vs-th>{{$t('vehicle_model')}}</vs-th>
-          <vs-th>{{$t('vehicle_key')}}</vs-th>
-          <vs-th>{{$t('license_exp')}}</vs-th>
+          <vs-th>{{$t('name')}}</vs-th>
           <vs-th width="100"></vs-th>
         </template>
 
         <template slot-scope="{data}">
           <slot v-for="(tr, indextr) in data" class="bg-white">
+
             <vs-tr class="bg-white">
               <vs-td>
                 <vs-button size="small" color="primary" icon-pack="feather" icon="icon-edit"
-                           @click="$router.push({name:'edit-vehicle',params:{id:tr.id}})">{{$t('edit')}}
+                           @click="$router.push({name:'edit-branch',params:{id:tr.id}})">{{$t('edit')}}
                 </vs-button>
               </vs-td>
-              <vs-td :data="data[indextr].vehicle_class">
-                {{tr.vehicle_class.title}}
-              </vs-td>
-              <vs-td :data="data[indextr].vehicle_model">
-                {{tr.vehicle_model.brand.title}} - {{tr.vehicle_model.title}}
-              </vs-td>
-              <vs-td :data="data[indextr].vehicle_key">
-                {{tr.vehicle_key}}
-              </vs-td>
-              <vs-td :data="data[indextr].phone">
-                {{tr.license_exp}}
+              <vs-td>
+                {{tr.name}}
               </vs-td>
               <vs-td>
                 <div class="btn-group flex">
@@ -72,10 +61,11 @@
         <vs-pagination :total="pageTotal" v-model="currentx" goto></vs-pagination>
       </div>
 
-    </div>
 
+    </div>
   </div>
 </template>
+
 
 <script>
   export default {
@@ -85,12 +75,12 @@
         query: '',
         currentx: 1,
         pageTotal: 0,
-        vehicles: []
+        branches: []
       }
     },
     watch: {
       currentx: function (n, o) {
-        this.getAllVehicles()
+        this.getAllBranches()
       },
     },
     methods: {
@@ -106,9 +96,9 @@
         }).then(function (result) {
           if (result.isConfirmed) {
             vm.$vs.loading();
-            let dispatch = vm.$store.dispatch('moduleVehicle/removeVehicle', {ids: [id]});
+            let dispatch = vm.$store.dispatch('moduleBranch/removeBranch', {ids: [id]});
             dispatch.then(() => {
-              vm.vehicles = vm.$store.getters['moduleVehicle/getAllVehicles'];
+              vm.branches = vm.$store.getters['moduleBranch/getAllBranches'];
               vm.$vs.loading.close()
             }).catch((error) => {
               vm.$helper.handleError(error, vm);
@@ -117,17 +107,16 @@
             return;
           }
         });
-
       },
-      getAllVehicles() {
+      getAllBranches() {
         let vm = this;
         vm.$vs.loading();
         let filters = vm.prepareFilters();
-        let dispatch = this.$store.dispatch('moduleVehicle/fetchVehicles', filters);
+        let dispatch = this.$store.dispatch('moduleBranch/fetchBranch', filters);
         dispatch.then((response) => {
           response = response.data;
-          vm.pageTotal = response.data.vehicles.last_page;
-          vm.vehicles = this.$store.getters['moduleVehicle/getAllVehicles'];
+          vm.pageTotal = response.data.users.last_page;
+          vm.branches = this.$store.getters['moduleBranch/getAllBranches'];
           vm.$vs.loading.close()
         }).catch((error) => {
           vm.$helper.handleError(error, vm);
@@ -136,7 +125,7 @@
       },
       submitFilter() {
         this.currentx = 1;
-        this.getAllVehicles();
+        this.getAllBranches();
       },
       prepareFilters() {
         return {
@@ -149,7 +138,7 @@
     },
     mounted() {
       let vm = this;
-      vm.getAllVehicles();
+      vm.getAllBranches();
     }
   }
 </script>

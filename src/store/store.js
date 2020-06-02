@@ -13,6 +13,8 @@ import moduleCommon from './common/moduleCommon.js'
 import moduleCaptain from './captain/moduleCaptain.js'
 import moduleVehicle from './vehicle/moduleVehicle.js'
 import moduleCoupon from './coupon/moduleCoupon.js'
+import moduleClient from './client/moduleClient.js'
+import moduleBranch from './branch/moduleBranch.js'
 
 export default new Vuex.Store({
   getters,
@@ -25,6 +27,8 @@ export default new Vuex.Store({
     moduleCaptain: moduleCaptain,
     moduleVehicle: moduleVehicle,
     moduleCoupon: moduleCoupon,
+    moduleClient: moduleClient,
+    moduleBranch: moduleBranch,
   },
   strict: process.env.NODE_ENV !== 'production'
 })

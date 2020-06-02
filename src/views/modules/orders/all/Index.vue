@@ -48,7 +48,7 @@
     components: {},
     data() {
       return {
-        searchQuery: '',
+        query : '',
         orders: []
       }
     },

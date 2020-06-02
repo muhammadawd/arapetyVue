@@ -81,7 +81,11 @@ export default {
     yes: 'نعم',
     no: 'لا',
     image: 'الصورة',
+    wallet: 'المحفظة',
+    fine: 'الغرامات',
+    gender: 'الجنس',
     show_image: 'عرض الصورة الحالية',
+    branches: 'الفروع',
   },
   en: {
     Dashboard: 'Dashboard',
