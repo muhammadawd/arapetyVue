@@ -134,8 +134,8 @@
         let filters = vm.prepareFilters();
         let dispatch = this.$store.dispatch('moduleCoupon/fetchCoupon', filters);
         dispatch.then((response) => {
-          // response = response.data;
-          // vm.pageTotal = response.data.coupons.last_page;
+          response = response.data;
+          vm.pageTotal = response.data.coupons.last_page;
           vm.coupons = this.$store.getters['moduleCoupon/getAllCoupons'];
           vm.$vs.loading.close()
         }).catch((error) => {

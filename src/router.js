@@ -417,6 +417,23 @@ const router = new Router({
             authRequired: true,
           }
         },
+        // =============================================================================
+        // Transactions Routes
+        // =============================================================================
+        {
+          path: 'transactionModule/all_transactions',
+          name: 'all_transactions',
+          component: () => import('./views/modules/transactions/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Transactions'},
+              {title: 'All Transactions', active: true},
+            ],
+            pageTitle: 'All Transactions',
+            authRequired: true,
+          }
+        },
       ],
     },
     // =============================================================================

@@ -4,8 +4,5 @@
 ==========================================================================================*/
 
 export default {
-  statuses: [],
-  settings: [],
-  vehicleBrands: [],
-  vehicleClasses: [],
+  admins: [],
 }

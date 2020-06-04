@@ -31,6 +31,7 @@
         <template slot="thead">
           <vs-th>#</vs-th>
           <vs-th>{{$t('name')}}</vs-th>
+          <vs-th>{{$t('location_tags')}}</vs-th>
           <vs-th width="100"></vs-th>
         </template>
 
@@ -45,6 +46,9 @@
               </vs-td>
               <vs-td>
                 {{tr.name}}
+              </vs-td>
+              <vs-td>
+                {{tr.location_tags.length}}
               </vs-td>
               <vs-td>
                 <div class="btn-group flex">
@@ -115,7 +119,7 @@
         let dispatch = this.$store.dispatch('moduleBranch/fetchBranch', filters);
         dispatch.then((response) => {
           response = response.data;
-          vm.pageTotal = response.data.users.last_page;
+          vm.pageTotal = response.data.branches.last_page;
           vm.branches = this.$store.getters['moduleBranch/getAllBranches'];
           vm.$vs.loading.close()
         }).catch((error) => {

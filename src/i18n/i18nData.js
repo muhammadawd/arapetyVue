@@ -86,6 +86,11 @@ export default {
     gender: 'الجنس',
     show_image: 'عرض الصورة الحالية',
     branches: 'الفروع',
+    location_tags: 'علامات الفرع',
+    title_ar: 'الاسم بالعربية',
+    title_en: 'الاسم بالانجليزية',
+    all_transactions: 'الماليات',
+    transactions: 'الخزينة',
   },
   en: {
     Dashboard: 'Dashboard',

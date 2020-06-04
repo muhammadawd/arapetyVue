@@ -1,11 +1,9 @@
 /*=========================================================================================
-  File Name: moduleCaptainState.js
-  Description: Captain Module State
+  File Name: moduleCaptainGetters.js
+  Description: Captain Module Getters
 ==========================================================================================*/
 
+
 export default {
-  statuses: [],
-  settings: [],
-  vehicleBrands: [],
-  vehicleClasses: [],
+  getAllAdmins: state => state.admins,
 }

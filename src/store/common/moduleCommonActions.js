@@ -18,6 +18,22 @@ export default {
         })
     })
   },
+  fetchSettings({commit}, filters) {
+    return new Promise((resolve, reject) => {
+      axios.get(requests.COMMON_GET_ALL_SETTINGS, {
+        params: filters
+      })
+        .then((response) => {
+          if (response.data.status) {
+            commit('SET_SETTINGS', response.data.data.settings)
+          }
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
   fetchVehicleCommon({commit}, filters) {
     return new Promise((resolve, reject) => {
       axios.get(requests.COMMON_VEHICLES, {
@@ -38,6 +54,17 @@ export default {
             commit('SET_VEHICLES_BRANDS', brands);
             commit('SET_VEHICLES_CLASSES', response.data.data.vehicleClasses);
           }
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  updateSetting({commit}, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post(requests.COMMON_UPDATE_SETTINGS, payload)
+        .then((response) => {
           resolve(response)
         })
         .catch((error) => {

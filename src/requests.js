@@ -1,7 +1,6 @@
 import helper from './filters/helper'
 
 const current_branch = helper.getCurrentBranch();
-// console.log(`current_branch: ${current_branch}`);
 
 export default {
   BASE: 'http://approc.com/~approctest/arapety/api/',
@@ -10,6 +9,8 @@ export default {
 
   COMMON_STATUS: '/common/getStatus',
   COMMON_VEHICLES: '/common/getVehicleCommon',
+  COMMON_GET_ALL_SETTINGS: '/common/getSetting',
+  COMMON_UPDATE_SETTINGS: '/common/updateSetting',
 
   ADD_CAPTAINS: '/driver/create',
   ALL_CAPTAINS: `/driver/${current_branch}`,
@@ -40,4 +41,19 @@ export default {
   FIND_BRANCH: `/branch`,
   UPDATE_BRANCH: '/branch/update',
   DELETE_BRANCH: '/branch/delete',
+
+  ADD_ROLES: '/admin/role/create-update',
+  ALL_ROLES: `/admin/role/${current_branch}`,
+  FIND_ROLES: `/admin/role/${current_branch}`,
+  UPDATE_ROLES: '/admin/role/create-update',
+  DELETE_ROLES: '/admin/role/delete',
+  ALL_PERMISSIONS: 'admin/role/permissions',
+
+
+  ADD_ADMIN: '/admin/create',
+  ALL_ADMINS: `/admin/${current_branch}`,
+  FIND_ADMIN: `/admin/find/${current_branch}`,
+  UPDATE_ADMIN: '/admin/update',
+  DELETE_ADMIN: '/admin/delete',
+
 }

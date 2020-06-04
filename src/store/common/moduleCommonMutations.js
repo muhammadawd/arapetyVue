@@ -14,4 +14,7 @@ export default {
   SET_VEHICLES_CLASSES(state, classes) {
     state.vehicleClasses = classes
   },
+  SET_SETTINGS(state, settings) {
+    state.settings = settings
+  },
 }

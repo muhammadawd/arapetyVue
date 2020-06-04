@@ -16,7 +16,7 @@
           <span class="text-danger text-sm" v-show="errors.has('gender')">{{ errors.first('gender') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|numeric'" class="w-full" :label="$t('phone')" name="phone"
+          <vs-input v-validate="'required|numeric|digits:11'" class="w-full" :label="$t('phone')" name="phone"
                     :danger="errors.has('phone')" val-icon-danger="close"
                     autocomplete="off" v-model="dataModel.phone"/>
           <span class="text-danger text-sm" v-show="errors.has('phone')">{{ errors.first('phone') }}</span>

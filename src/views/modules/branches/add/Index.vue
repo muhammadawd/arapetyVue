@@ -9,6 +9,22 @@
                     autocomplete="off" v-model=" dataModel.name"/>
           <span class="text-danger text-sm" v-show="errors.has('name')">{{ errors.first('name') }}</span>
         </div>
+        <div class="vx-col w-full md:w-3/4 mb-2">
+          <div class="vs-component vs-con-input-label vs-input w-full vs-input-primary">
+            <label class="vs-input--label">{{$t('location_tags')}}</label>
+            <vue-tags-input
+              v-model="location_tag"
+              :tags="location_tags"
+              name="location_tags"
+              class="w-full"
+              placeholder=""
+              :danger="errors.has('location_tags')" val-icon-danger="close"
+              @tags-changed="newTags => location_tags = newTags"
+            />
+            <span class="text-danger text-sm"
+                  v-show="errors.has('location_tags')">{{ errors.first('location_tags') }}</span>
+          </div>
+        </div>
         <div class="vx-col w-full">
           <vs-button type="filled" size="small" @click.prevent="submitForm" class="mt-5 block">{{$t('add')}}</vs-button>
         </div>
@@ -23,22 +39,25 @@
   import vSelect from 'vue-select'
   import flatPickr from 'vue-flatpickr-component';
   import 'flatpickr/dist/flatpickr.css';
+  import VueTagsInput from '@johmun/vue-tags-input';
 
   export default {
     data() {
       return {
-        genders: ['male', 'female'],
+        location_tag: '',
+        location_tags: [],
         dataModel: {}
       }
     },
     components: {
-      'v-select': vSelect, flatPickr
+      'v-select': vSelect, flatPickr, VueTagsInput
     },
     methods: {
       addBranch() {
         let vm = this;
         vm.$vs.loading()
         let request_data = vm.dataModel;
+        request_data.location_tags = _.map(vm.location_tags,'text');
         // request_data.type = request_data.type_object ? request_data.type_object.value : '';
 
         let dispatch = this.$store.dispatch('moduleBranch/addBranch', request_data);

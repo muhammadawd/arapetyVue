@@ -37,6 +37,20 @@ export default [
     icon: "PackageIcon",
     i18n: "app_core",
     items: [
+      // {
+      //   url: null,
+      //   name: "all_transactions",
+      //   icon: "CreditCardIcon",
+      //   i18n: "all_transactions",
+      //   submenu: [
+      //     {
+      //       url: '/transactionModule/all_transactions',
+      //       name: "transactions",
+      //       slug: "all_transactions",
+      //       i18n: "transactions",
+      //     }
+      //   ]
+      // },
       {
         url: null,
         name: "vehicles",
@@ -121,8 +135,6 @@ export default [
         name: "settings",
         icon: "SettingsIcon",
         i18n: "settings",
-        tag: 'لم ينتهي',
-        tagColor: 'red',
         submenu: [
           {
             url: '/settingsModule/main_settings',
@@ -130,12 +142,6 @@ export default [
             slug: "main-settings",
             i18n: "main_settings",
           },
-          {
-            url: '/rolesModule/all-roles',
-            name: "roles",
-            slug: "all-roles",
-            i18n: "roles",
-          }
         ]
       },
       {
@@ -154,11 +160,23 @@ export default [
       },
       {
         url: null,
+        name: "roles",
+        icon: "Navigation2Icon",
+        i18n: "roles",
+        submenu: [
+          {
+            url: '/rolesModule/all-roles',
+            name: "roles",
+            slug: "all-roles",
+            i18n: "roles",
+          }
+        ]
+      },
+      {
+        url: null,
         name: "admins",
         icon: "UsersIcon",
         i18n: "admins",
-        tag: 'لم ينتهي',
-        tagColor: 'red',
         submenu: [
           {
             url: '/adminsModule/all-admins',
