@@ -17,6 +17,8 @@ import moduleClient from './client/moduleClient.js'
 import moduleBranch from './branch/moduleBranch.js'
 import moduleRole from './role/moduleRole.js'
 import moduleAdmin from './admin/moduleAdmin.js'
+import moduleOrder from './order/moduleOrder.js'
+import moduleTransaction from './transactions/moduleTransaction.js'
 
 export default new Vuex.Store({
   getters,
@@ -33,6 +35,8 @@ export default new Vuex.Store({
     moduleBranch: moduleBranch,
     moduleRole: moduleRole,
     moduleAdmin: moduleAdmin,
+    moduleOrder: moduleOrder,
+    moduleTransaction: moduleTransaction,
   },
   strict: process.env.NODE_ENV !== 'production'
 })

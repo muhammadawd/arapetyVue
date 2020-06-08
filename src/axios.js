@@ -1,7 +1,7 @@
 // axios
 import axios from 'axios'
 
-const baseURL = "http://approc.com/~approctest/arapety/api/"
+const baseURL = process.env.VUE_APP_API;
 let token = localStorage.getItem("token");
 export default axios.create({
   baseURL: baseURL,

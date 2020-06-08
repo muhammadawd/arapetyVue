@@ -11,17 +11,39 @@
           </div>
         </vs-col>
         <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="6">
+
+          <input type="file" class="hidden" ref="xfile" id="fileInput"
+                 v-on:change="handleFileUpload()"
+                 accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+
           <div class="btn-group flex">
+
+            <vs-dropdown>
+              <a class="flex items-center" href.prevent>
+                {{$t('upload_sheet')}} & {{$t('download_sheet')}}
+                <i class="material-icons">expand_more</i>
+              </a>
+              <span class="text-danger text-sm" v-show="errors.has('file')">{{ errors.first('file') }}dasda</span>
+
+              <vs-dropdown-menu style="width: 120px;">
+                <vs-dropdown-item @click="$refs.xfile.click()"> {{$t('upload_sheet')}}
+                </vs-dropdown-item>
+
+                <vs-dropdown-item divider :href="downloadFile()"> {{$t('download_sheet')}}</vs-dropdown-item>
+              </vs-dropdown-menu>
+            </vs-dropdown>
+
             <vs-button size="small" type="line" color="primary" icon-pack="feather" icon="icon-plus"
                        @click="$router.push({name:'add-coupon'})">{{$t('add')}}
             </vs-button>
-            <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather"  @click="submitFilter()"
+            <vs-button size="small" type="line" color="rgb(62, 201, 214)" icon-pack="feather" @click="submitFilter()"
                        icon="icon-search">
               {{$t('filter')}}
             </vs-button>
+
             <!--<vs-button size="small" type="line" color="success" icon-pack="feather"-->
-                       <!--icon="icon-file">-->
-              <!--{{$t('upload_file')}}-->
+            <!--icon="icon-file">-->
+            <!--{{$t('upload_file')}}-->
             <!--</vs-button>-->
           </div>
         </vs-col>
@@ -103,6 +125,26 @@
       },
     },
     methods: {
+      downloadFile() {
+        return process.env.VUE_APP_COUPON_XLSFILE_PATH;
+      },
+      handleFileUpload() {
+        let vm = this;
+        let file = vm.$refs.xfile.files[0];
+        let formData = new FormData();
+        formData.append('file', file);
+
+        vm.$vs.loading();
+        let dispatch = vm.$store.dispatch('moduleCoupon/uploadCouponFile', formData);
+        dispatch.then(() => {
+          vm.submitFilter()
+          vm.$vs.loading.close()
+        }).catch((error) => {
+          vm.$helper.handleError(error, vm);
+          vm.$vs.loading.close()
+        });
+
+      },
       confirmDelete(id) {
         let vm = this;
         vm.$swal({

@@ -64,4 +64,20 @@ export default {
         })
     })
   },
+  uploadCouponFile({commit}, payload){
+    return new Promise((resolve, reject) => {
+      axios.post(requests.UPLOAD_COUPONS, payload ,{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then((response) => {
+          // commit('ADD_COUPON', Object.assign(payload, {id: response.data.data.coupon.id}))
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  }
 }

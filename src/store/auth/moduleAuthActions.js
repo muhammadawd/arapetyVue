@@ -1,3 +1,4 @@
+import jwt from "../../http/requests/auth/jwt/index.js"
 import axios from "@/axios.js"
 import router from '@/router'
 import requests from "@/requests.js"
@@ -7,7 +8,7 @@ export default {
   loginJWT({commit}, payload) {
 
     return new Promise((resolve, reject) => {
-      axios.post(requests.AUTH_JWT_LOGIN_ADMIN, {
+      jwt.login(requests.AUTH_JWT_LOGIN_ADMIN, {
         username: payload.userDetails.username,
         password: payload.userDetails.password
       })
@@ -30,6 +31,7 @@ export default {
             // Navigate User to homepage
             router.push(router.currentRoute.query.to || '/');
 
+
             resolve(response)
           } else {
             reject({message: payload.vm.$t('server_parse_error')})
@@ -41,6 +43,13 @@ export default {
         })
     })
   },
+  fetchAccessToken() {
+    return new Promise((resolve) => {
+      jwt.refreshToken().then(response => {
+        resolve(response)
+      })
+    })
+  }
   // registerUserJWT({ commit }, payload) {
   //
   //   const { displayName, email, password, confirmPassword } = payload.userDetails

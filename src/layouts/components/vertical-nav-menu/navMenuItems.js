@@ -37,20 +37,22 @@ export default [
     icon: "PackageIcon",
     i18n: "app_core",
     items: [
-      // {
-      //   url: null,
-      //   name: "all_transactions",
-      //   icon: "CreditCardIcon",
-      //   i18n: "all_transactions",
-      //   submenu: [
-      //     {
-      //       url: '/transactionModule/all_transactions',
-      //       name: "transactions",
-      //       slug: "all_transactions",
-      //       i18n: "transactions",
-      //     }
-      //   ]
-      // },
+      {
+        url: null,
+        name: "all_transactions",
+        icon: "CreditCardIcon",
+        i18n: "all_transactions",
+        tag: 'لم ينتهي',
+        tagColor: 'red',
+        submenu: [
+          {
+            url: '/transactionModule/all_transactions',
+            name: "transactions",
+            slug: "all_transactions",
+            i18n: "transactions",
+          }
+        ]
+      },
       {
         url: null,
         name: "vehicles",
@@ -62,7 +64,19 @@ export default [
             name: "vehicles",
             slug: "all-vehicles",
             i18n: "vehicles",
-          }
+          },
+          {
+            url: '/vehiclesModule/all-brands',
+            name: "brands",
+            slug: "all-brands",
+            i18n: "brands",
+          },
+          {
+            url: '/vehiclesModule/all-models',
+            name: "all-models",
+            slug: "all-vehicle-model",
+            i18n: "vehicle_model",
+          },
         ]
       },
       {
@@ -120,6 +134,28 @@ export default [
             name: "orders",
             slug: "all-orders",
             i18n: "orders",
+          },
+          {
+            url: '/ordersModule/collect-orders',
+            name: "collect_orders",
+            slug: "collect_orders",
+            i18n: "collect_orders",
+          },
+        ]
+      },
+      {
+        url: null,
+        name: "maps",
+        icon: "MapIcon",
+        i18n: "maps",
+        tag: 'لم ينتهي',
+        tagColor: 'red',
+        submenu: [
+          {
+            url: '/trackingModule/all_drivers_map',
+            name: "all_drivers_map",
+            slug: "all_drivers_map",
+            i18n: "all_drivers_map",
           },
         ]
       },

@@ -105,22 +105,80 @@ const router = new Router({
         // =============================================================================
         {
           path: '/ordersModule/all-orders',
-          name: 'add-order',
+          name: 'all-order',
           component: () => import('./views/modules/orders/all/Index.vue'),
           meta: {
             breadcrumb: [
               {title: 'Dashboard', url: '/dashboard/home'},
               {title: 'Order'},
               {title: 'Order'},
-              {title: 'Add Order', active: true},
+              {title: 'All Orders', active: true},
             ],
-            pageTitle: 'Add Order',
+            pageTitle: 'All Orders',
+            authRequired: true,
+          }
+        },
+        {
+          path: '/ordersModule/collect-orders',
+          name: 'collect-orders',
+          component: () => import('./views/modules/orders/collectOrders/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Collect Order'},
+              {title: 'Collect Order'},
+              {title: 'Collect Orders', active: true},
+            ],
+            pageTitle: 'Collect Orders',
+            authRequired: true,
+          }
+        },
+        {
+          path: '/ordersModule/show-order/:id',
+          name: 'show-order',
+          component: () => import('./views/modules/orders/show/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Order'},
+              {title: 'Order'},
+              {title: 'Show Order', active: true},
+            ],
+            pageTitle: 'Show Order',
             authRequired: true,
           }
         },
         // =============================================================================
-        // Captains Routes
+        // Vehicles Routes
         // =============================================================================
+        {
+          path: '/vehiclesModule/all-brands',
+          name: 'all-brands',
+          component: () => import('./views/modules/vehicles/brands/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Brands'},
+              {title: 'Brands', active: true},
+            ],
+            pageTitle: 'Brands',
+            authRequired: true,
+          }
+        },
+        {
+          path: '/vehiclesModule/all-models',
+          name: 'all-models',
+          component: () => import('./views/modules/vehicles/models/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Models'},
+              {title: 'Models', active: true},
+            ],
+            pageTitle: 'Models',
+            authRequired: true,
+          }
+        },
         {
           path: '/vehiclesModule/all-vehicles',
           name: 'all-vehicles',
@@ -434,6 +492,23 @@ const router = new Router({
             authRequired: true,
           }
         },
+        // =============================================================================
+        // Transactions Routes
+        // =============================================================================
+        {
+          path: 'trackingModule/all_drivers_map',
+          name: 'all_drivers_map',
+          component: () => import('./views/modules/map/Index.vue'),
+          meta: {
+            breadcrumb: [
+              {title: 'Dashboard', url: '/dashboard/home'},
+              {title: 'Tracking'},
+              {title: 'All Drivers Map', active: true},
+            ],
+            pageTitle: 'All Drivers Map',
+            authRequired: true,
+          }
+        },
       ],
     },
     // =============================================================================
@@ -477,7 +552,8 @@ router.beforeEach((to, from, next) => {
   // If auth required, check login. If login fails redirect to login page
   if (to.meta.authRequired) {
     // console.log(store.state.moduleAuth.isUserLoggedIn())
-    if (!(store.state.moduleAuth.isUserLoggedIn())) {
+    let token = localStorage.getItem('token')
+    if (!token) {
       router.push({name: 'page-login', query: {to: to.path}})
     }
   }

@@ -62,4 +62,30 @@ export default {
         })
     })
   },
+  addBrand({commit}, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post(requests.ADD_VEHICLE_BRANDS, payload, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      })
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
+  addModel({commit}, payload) {
+    return new Promise((resolve, reject) => {
+      axios.post(requests.ADD_VEHICLE_MODELS, payload)
+        .then((response) => {
+          resolve(response)
+        })
+        .catch((error) => {
+          reject(error)
+        })
+    })
+  },
 }

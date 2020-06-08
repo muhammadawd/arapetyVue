@@ -118,7 +118,7 @@
             vm.$vs.loading.close()
           })
           .catch(error => {
-            vm.$helper.handleError(error, vm)
+            vm.$helper.handleError(error, vm);
             vm.$vs.loading.close()
           })
       },

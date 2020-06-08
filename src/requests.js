@@ -3,8 +3,9 @@ import helper from './filters/helper'
 const current_branch = helper.getCurrentBranch();
 
 export default {
-  BASE: 'http://approc.com/~approctest/arapety/api/',
+  BASE: process.env.VUE_APP_API,
 
+  REFRESH_ACCESS_TOKEN: '',
   AUTH_JWT_LOGIN_ADMIN: '/admin/login',
 
   COMMON_STATUS: '/common/getStatus',
@@ -23,7 +24,10 @@ export default {
   FIND_VEHICLES: `/vehicle/find/${current_branch}`,
   UPDATE_VEHICLES: '/vehicle/update',
   DELETE_VEHICLES: '/vehicle/delete',
+  ADD_VEHICLE_BRANDS: '/vehicle/create-brand',
+  ADD_VEHICLE_MODELS: '/vehicle/create-model',
 
+  UPLOAD_COUPONS: '/coupon/importFile',
   ADD_COUPON: '/coupon/create',
   ALL_COUPON: `/coupon`,
   FIND_COUPON: `/coupon/find`,
@@ -55,5 +59,12 @@ export default {
   FIND_ADMIN: `/admin/find/${current_branch}`,
   UPDATE_ADMIN: '/admin/update',
   DELETE_ADMIN: '/admin/delete',
+
+  ALL_ORDERS: `/order/${current_branch}`,
+  FIND_ORDER: `/order/findOrder`,
+  FIND_ORDERS_DRIVER: `/order/getOrdersWithDriver/${current_branch}`,
+  COLLECT_ORDERS: `/order/collectOrders/${current_branch}`,
+
+  ALL_TRANSACTIONS: `/transaction/${current_branch}`,
 
 }
