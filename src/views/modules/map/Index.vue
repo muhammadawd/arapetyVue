@@ -149,7 +149,7 @@
             vm.center = locations[0];
           }
           let center = vm.center;
-          vm.locations = locations;
+          vm.setMapPath(locations);
           vm.mapSetCenter(center);
         })
       },
