@@ -18,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/modules/map/Index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="354">
-              <caret line="151" column="35" selection-start-line="151" selection-start-column="35" selection-end-line="151" selection-end-column="35" />
+            <state relative-caret-position="323">
+              <caret line="164" column="36" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -357,12 +357,12 @@
       <workItem from="1591347835593" duration="11000" />
       <workItem from="1591512784270" duration="24477000" />
       <workItem from="1591686215562" duration="14557000" />
-      <workItem from="1591773499799" duration="2191000" />
+      <workItem from="1591773499799" duration="2273000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162467000" />
+    <option name="totallyTimeSpent" value="162549000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -871,8 +871,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/modules/map/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="151" column="35" selection-start-line="151" selection-start-column="35" selection-end-line="151" selection-end-column="35" />
+        <state relative-caret-position="323">
+          <caret line="164" column="36" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
           <folding>
             <element signature="n#style#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />

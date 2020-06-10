@@ -161,8 +161,8 @@
       socketIoJoinTrack(driver_id) {
         const vm = this;
         vm.$socket.emit('join', `driver-${driver_id}`);
-        vm.$socket.on('newDriverLocationListener', (data) => {
-          console.log(data)
+        vm.$socket.on('newDriverLocationListener', (location) => {
+          vm.locations.push(location)
         });
       },
       setMapPath(locations) {
