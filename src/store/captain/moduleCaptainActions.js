@@ -47,7 +47,7 @@ export default {
   },
   updateCaptain({commit}, payload) {
     return new Promise((resolve, reject) => {
-      axios.post(`${requests.UPDATE_CAPTAINS}`,payload)
+      axios.post(`${requests.UPDATE_CAPTAINS}`, payload)
         .then((response) => {
           resolve(response)
         })
@@ -68,4 +68,7 @@ export default {
         })
     })
   },
+  setQuerySearch({commit}, payload) {
+    commit('SET_QUERY_SEARCH', payload.querySearch)
+  }
 }

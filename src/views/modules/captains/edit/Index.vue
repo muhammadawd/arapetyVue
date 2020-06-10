@@ -10,7 +10,7 @@
           <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('last_name')" name="last_name"
+          <vs-input v-validate="'required'" class="w-full" :label="$t('last_name')" name="last_name"
                     :danger="errors.has('last_name')" val-icon-danger="close"
                     autocomplete="off" v-model="dataModel.last_name"/>
           <span class="text-danger text-sm" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
@@ -28,7 +28,7 @@
           <span class="text-danger text-sm" v-show="errors.has('age')">{{ errors.first('age') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('username')" name="username"
+          <vs-input v-validate="'required'" class="w-full" :label="$t('username')" name="username"
                     :danger="errors.has('username')" val-icon-danger="close"
                     autocomplete="off" v-model="dataModel.username"/>
           <span class="text-danger text-sm" v-show="errors.has('username')">{{ errors.first('username') }}</span>
@@ -91,7 +91,7 @@
           <span class="text-danger text-sm" v-show="errors.has('branch_id')">{{ errors.first('branch_id') }}</span>
         </div>
         <div class="vx-col w-full mt-2">
-          <vs-button type="filled" size="small" :disabled="$helper.validateFormErrors(this)" @click.prevent="submitForm"
+          <vs-button type="filled" size="small" @click.prevent="submitForm"
                      class="mt-5 block">{{$t('edit')}}
           </vs-button>
         </div>
@@ -112,6 +112,7 @@
       return {
         driverStatuses: [],
         vehicles: [],
+        new_image: null,
         dataModel: {
           branch_id: this.$helper.getCurrentBranch()
         }
@@ -129,11 +130,12 @@
         request_data.status_id = request_data.status ? request_data.status.id : '';
         request_data.vehicle_id = request_data.vehicle ? request_data.vehicle.id : '';
         let form_data = new FormData();
-
+        // console.log(request_data.new_image)
         for (let [key, value] of Object.entries(request_data)) {
           form_data.append(key, (value != 'null' ? value : ''))
         }
 
+        form_data.append('image', vm.new_image)
         let dispatch = this.$store.dispatch('moduleCaptain/updateCaptain', form_data);
         dispatch.then(() => {
           vm.$vs.loading.close()
@@ -146,7 +148,8 @@
       },
       handleFileUpload() {
         let vm = this;
-        vm.dataModel.image = vm.$refs.image.files[0];
+        console.log(vm.$refs.image.files[0])
+        vm.new_image = vm.$refs.image.files[0];
       },
       submitForm() {
         let vm = this;

@@ -11,6 +11,9 @@ export default {
   SET_CAPTAINS(state, captains) {
     state.captains = captains
   },
+  SET_QUERY_SEARCH(state, querySearch) {
+    state.querySearch = querySearch
+  },
   UPDATE_CAPTAIN(state, captain) {
     const captainIndex = state.captains.findIndex((c) => c.id == captain.id);
     Object.assign(state.captains[captainIndex], captain)

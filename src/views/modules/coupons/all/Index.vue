@@ -23,7 +23,7 @@
                 {{$t('upload_sheet')}} & {{$t('download_sheet')}}
                 <i class="material-icons">expand_more</i>
               </a>
-              <span class="text-danger text-sm" v-show="errors.has('file')">{{ errors.first('file') }}dasda</span>
+              <span class="text-danger text-sm" v-show="errors.has('file')">{{ errors.first('file') }}</span>
 
               <vs-dropdown-menu style="width: 120px;">
                 <vs-dropdown-item @click="$refs.xfile.click()"> {{$t('upload_sheet')}}

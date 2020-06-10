@@ -4,6 +4,7 @@
 ==========================================================================================*/
 
 export default {
-  captains: [],
-  querySearch: ''
+  connected: false,
+  socket: null,
+  onlineUsers: []
 }

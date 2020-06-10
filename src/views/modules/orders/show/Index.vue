@@ -152,7 +152,7 @@
             let center = vm.center;
 
             vm.$refs.mapRef.$mapPromise.then((map) => {
-              // map.panTo(center)
+              map.panTo(center)
             })
           }
           vm.$vs.loading.close()

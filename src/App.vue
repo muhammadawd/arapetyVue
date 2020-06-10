@@ -13,6 +13,7 @@
 <script>
   import themeConfig from '@/../themeConfig.js'
   import jwt from "@/http/requests/auth/jwt/index.js"
+  import io from 'socket.io-client';
 
   export default {
     data() {
@@ -26,6 +27,12 @@
       },
       '$vs.rtl'(val) {
         document.documentElement.setAttribute("dir", val ? "rtl" : "ltr")
+      },
+      watch: {
+        '$route'() {
+          this.handleToken()
+          // this.socketConnection()
+        }
       }
     },
     methods: {
@@ -52,7 +59,17 @@
       },
       handleScroll() {
         this.$store.commit('UPDATE_WINDOW_SCROLL_Y', window.scrollY)
-      }
+      },
+      handleToken() {
+
+        let token = localStorage.getItem("token");
+        if (token) {
+          this.$store.dispatch('moduleAuth/setBearer', token);
+        }
+      },
+      initConnection() {
+        this.$store.dispatch('moduleSocket/initConnection', this.$socket);
+      },
     },
     mounted() {
       this.toggleClassInBody(themeConfig.theme)
@@ -63,9 +80,14 @@
       document.documentElement.style.setProperty('--vh', `${vh}px`);
     },
     async created() {
-
       // jwt
-      jwt.init()
+      jwt.init();
+
+      //axios token bearer
+      this.handleToken();
+
+      //socket connection
+      this.initConnection();
 
       let dir = this.$vs.rtl ? "rtl" : "ltr"
       document.documentElement.setAttribute("dir", dir)

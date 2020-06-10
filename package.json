@@ -55,6 +55,7 @@
     "vue-select": "^3.1.0",
     "vue-simple-calendar": "^4.2.2",
     "vue-simple-suggest": "^1.9.5",
+    "vue-socket.io": "^3.0.9",
     "vue-star-rating": "^1.6.1",
     "vue-sweetalert2": "^3.0.5",
     "vue-tour": "^1.1.0",

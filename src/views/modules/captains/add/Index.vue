@@ -10,7 +10,7 @@
           <span class="text-danger text-sm" v-show="errors.has('first_name')">{{ errors.first('first_name') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('last_name')" name="last_name"
+          <vs-input v-validate="'required'" class="w-full" :label="$t('last_name')" name="last_name"
                     :danger="errors.has('last_name')" val-icon-danger="close"
                     autocomplete="off" v-model="dataModel.last_name"/>
           <span class="text-danger text-sm" v-show="errors.has('last_name')">{{ errors.first('last_name') }}</span>
@@ -28,7 +28,7 @@
           <span class="text-danger text-sm" v-show="errors.has('age')">{{ errors.first('age') }}</span>
         </div>
         <div class="vx-col w-full md:w-1/4 mb-2">
-          <vs-input v-validate="'required|alpha'" class="w-full" :label="$t('username')" name="username"
+          <vs-input v-validate="'required'" class="w-full" :label="$t('username')" name="username"
                     :danger="errors.has('username')" val-icon-danger="close"
                     autocomplete="off" v-model="dataModel.username"/>
           <span class="text-danger text-sm" v-show="errors.has('username')">{{ errors.first('username') }}</span>

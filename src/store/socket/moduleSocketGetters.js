@@ -1,9 +1,11 @@
 /*=========================================================================================
-  File Name: moduleCaptainState.js
-  Description: Captain Module State
+  File Name: moduleCaptainGetters.js
+  Description: Captain Module Getters
 ==========================================================================================*/
 
+
 export default {
-  captains: [],
-  querySearch: ''
+  isConnected: state => state.connected,
+  getSocket: state => state.socket,
+  getOnlineUsers: state => state.onlineUsers,
 }

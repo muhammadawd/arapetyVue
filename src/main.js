@@ -68,6 +68,28 @@ import router from './router'
 // Vuex Store
 import store from './store/store'
 
+// socket io with vuex
+import VueSocketIO from 'vue-socket.io'
+import SocketIO from "socket.io-client"
+
+let user_id = null;
+let userInfo = JSON.parse(localStorage.getItem('userInfo'));
+if (userInfo) user_id = userInfo.id;
+Vue.use(new VueSocketIO({
+  debug: true,
+  connection: SocketIO(process.env.VUE_APP_SOCKET_IO, {
+    transports: ['websocket'],
+    query: {
+      user_id: `admin-${user_id}`
+    }
+  }),
+  vuex: {
+    store,
+    actionPrefix: 'SOCKET_',
+    mutationPrefix: 'SOCKET_'
+  },
+}));
+
 
 // i18n
 import i18n from './i18n/i18n'

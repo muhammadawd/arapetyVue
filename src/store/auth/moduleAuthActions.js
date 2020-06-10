@@ -43,6 +43,11 @@ export default {
         })
     })
   },
+  setBearer({commit}, token) {
+    // Set bearer token in axios
+    commit("SET_BEARER", token);
+
+  },
   fetchAccessToken() {
     return new Promise((resolve) => {
       jwt.refreshToken().then(response => {
