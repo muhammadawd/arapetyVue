@@ -2,7 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25d5da00-ca9f-4f4e-b54f-b19881c92e78" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/assets/images/elements/danger.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/elements/success.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/components/vertical-nav-menu/navMenuItems.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/components/vertical-nav-menu/navMenuItems.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/modules/map/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/modules/map/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/modules/orders/all/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/modules/orders/all/Index.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/modules/transactions/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/modules/transactions/Index.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -18,8 +24,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/modules/map/Index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="164" column="36" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
+            <state relative-caret-position="253">
+              <caret line="59" column="41" lean-forward="true" selection-start-line="59" selection-start-column="41" selection-end-line="59" selection-end-column="41" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -30,6 +36,10 @@
                 <element signature="e#4296#4435#0" />
                 <element signature="e#4456#4546#0" />
                 <element signature="e#4568#4687#0" />
+                <element signature="e#4716#5149#0" />
+                <element signature="e#5180#5481#0" />
+                <element signature="e#5697#5706#0" />
+                <element signature="e#5751#5907#0" />
                 <element signature="e#5511#5556#0" />
                 <element signature="e#5580#5872#0" />
                 <element signature="e#5901#6026#0" />
@@ -39,10 +49,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://D:/Work/school/src/views/supervisorMap.vue">
+        <entry file="file://$PROJECT_DIR$/src/layouts/components/vertical-nav-menu/navMenuItems.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="485">
-              <caret line="197" column="25" lean-forward="true" selection-start-line="197" selection-start-column="25" selection-end-line="197" selection-end-column="25" />
+            <state relative-caret-position="363">
+              <caret line="35" column="19" lean-forward="true" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -60,9 +73,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getAllBra</find>
-      <find>ssn</find>
-      <find>dataModel.phone</find>
       <find>phone</find>
       <find>fetchAdmin</find>
       <find>cred</find>
@@ -90,6 +100,9 @@
       <find>Order</find>
       <find>stor</find>
       <find>socketConnection</find>
+      <find>flatpi</find>
+      <find>flatPickr</find>
+      <find>flat</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -136,7 +149,6 @@
         <option value="$PROJECT_DIR$/src/layouts/components/navbar/components/I18n.vue" />
         <option value="$PROJECT_DIR$/src/filters/helper.js" />
         <option value="$PROJECT_DIR$/src/router.js" />
-        <option value="$PROJECT_DIR$/src/views/modules/orders/all/Index.vue" />
         <option value="$PROJECT_DIR$/src/store/order/moduleOrderActions.js" />
         <option value="$PROJECT_DIR$/src/views/modules/orders/collectOrders/Index.vue" />
         <option value="$PROJECT_DIR$/src/requests.js" />
@@ -146,8 +158,6 @@
         <option value="$PROJECT_DIR$/src/store/transactions/moduleTransactionMutations.js" />
         <option value="$PROJECT_DIR$/src/store/transactions/moduleTransactionActions.js" />
         <option value="$PROJECT_DIR$/src/i18n/i18nData.js" />
-        <option value="$PROJECT_DIR$/src/layouts/components/vertical-nav-menu/navMenuItems.js" />
-        <option value="$PROJECT_DIR$/src/views/modules/transactions/Index.vue" />
         <option value="$PROJECT_DIR$/src/views/modules/coupons/all/Index.vue" />
         <option value="$PROJECT_DIR$/src/store/auth/moduleAuthActions.js" />
         <option value="$PROJECT_DIR$/src/axios.js" />
@@ -167,6 +177,9 @@
         <option value="$PROJECT_DIR$/src/store/socket/moduleSocketActions.js" />
         <option value="$PROJECT_DIR$/src/store/socket/moduleSocketGetters.js" />
         <option value="$PROJECT_DIR$/src/views/modules/captains/edit/Index.vue" />
+        <option value="$PROJECT_DIR$/src/views/modules/orders/all/Index.vue" />
+        <option value="$PROJECT_DIR$/src/views/modules/transactions/Index.vue" />
+        <option value="$PROJECT_DIR$/src/layouts/components/vertical-nav-menu/navMenuItems.js" />
         <option value="$PROJECT_DIR$/src/views/modules/map/Index.vue" />
       </list>
     </option>
@@ -200,13 +213,22 @@
               <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
               <item name="arapetyVue" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="filters" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
               <item name="arapetyVue" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="i18n" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
+              <item name="arapetyVue" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="assets" type="462c0819:PsiDirectoryNode" />
+              <item name="images" type="462c0819:PsiDirectoryNode" />
+              <item name="elements" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
@@ -268,7 +290,16 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="map" type="462c0819:PsiDirectoryNode" />
+              <item name="captains" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
+              <item name="arapetyVue" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="captains" type="462c0819:PsiDirectoryNode" />
+              <item name="add" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
@@ -277,6 +308,15 @@
               <item name="views" type="462c0819:PsiDirectoryNode" />
               <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="orders" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
+              <item name="arapetyVue" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="orders" type="462c0819:PsiDirectoryNode" />
+              <item name="all" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
@@ -286,6 +326,14 @@
               <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="orders" type="462c0819:PsiDirectoryNode" />
               <item name="show" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="arapetyVue" type="b2602c69:ProjectViewProjectNode" />
+              <item name="arapetyVue" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="transactions" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -311,18 +359,18 @@
     <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2018.3.1\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\arapetyVue\src\store" />
-      <recent name="C:\xampp\htdocs\arapetyVue\src\views\modules\orders" />
-      <recent name="C:\xampp\htdocs\arapetyVue\src" />
-      <recent name="C:\xampp\htdocs\arapetyVue\src\http" />
-      <recent name="C:\xampp\htdocs\arapetyVue\src\views\modules\vehicles" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\arapetyVue\src" />
       <recent name="C:\xampp\htdocs\arapetyVue" />
       <recent name="C:\xampp\htdocs\arapetyVue\src\test" />
       <recent name="C:\xampp\htdocs\arapetyVue\src\views\modules\captains\all" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\arapetyVue\src\assets\images\elements" />
+      <recent name="C:\xampp\htdocs\arapetyVue\src\store" />
+      <recent name="C:\xampp\htdocs\arapetyVue\src\views\modules\orders" />
+      <recent name="C:\xampp\htdocs\arapetyVue\src" />
+      <recent name="C:\xampp\htdocs\arapetyVue\src\http" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -357,18 +405,18 @@
       <workItem from="1591347835593" duration="11000" />
       <workItem from="1591512784270" duration="24477000" />
       <workItem from="1591686215562" duration="14557000" />
-      <workItem from="1591773499799" duration="2273000" />
+      <workItem from="1591773499799" duration="7272000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162549000" />
+    <option name="totallyTimeSpent" value="167548000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2514881" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2514881" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -393,23 +441,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/store/auth/moduleAuthMutations.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="28" lean-forward="true" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/http/requests/auth/jwt/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="34" column="41" lean-forward="true" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/store/order/moduleOrder.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="161">
@@ -483,16 +514,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
           <caret line="309" column="12" lean-forward="true" selection-start-line="309" selection-start-column="12" selection-end-line="309" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/modules/orders/all/Index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1169">
-          <caret line="43" column="42" lean-forward="true" selection-start-line="43" selection-start-column="42" selection-end-line="43" selection-end-column="42" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#vs-td#3;n#vs-tr#0;n#slot#0;n#template#1;n#vs-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -601,18 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/modules/transactions/Index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="256">
-          <caret line="67" column="47" selection-start-line="67" selection-start-column="47" selection-end-line="67" selection-end-column="47" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#vs-td#2;n#vs-tr#0;n#slot#0;n#template#1;n#vs-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#1093#1125#0" expanded="true" />
-            <element signature="e#1250#1328#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/modules/coupons/all/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -641,16 +650,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2208">
           <caret line="96" column="25" selection-start-line="96" selection-start-column="25" selection-end-line="96" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/layouts/components/vertical-nav-menu/navMenuItems.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="713">
-          <caret line="45" column="24" selection-start-line="45" selection-start-column="24" selection-end-line="45" selection-end-column="24" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -781,13 +780,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/views/modules/captains/add/Index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2506">
-          <caret line="23" column="49" lean-forward="true" selection-start-line="23" selection-start-column="49" selection-end-line="23" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/modules/captains/edit/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3009">
@@ -869,10 +861,69 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/modules/roles/edit/Index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="966">
+          <caret line="42" column="8" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
+          <folding>
+            <element signature="e#1773#1805#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/modules/captains/add/Index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="71" column="14" lean-forward="true" selection-start-line="71" selection-start-column="14" selection-end-line="76" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/modules/orders/all/Index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="17" column="44" lean-forward="true" selection-start-line="17" selection-start-column="44" selection-end-line="23" selection-end-column="53" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#vs-td#3;n#vs-tr#0;n#slot#0;n#template#1;n#vs-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#3564#3612#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/Work/school/src/views/Transactions/All.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="339">
+          <caret line="131" column="33" lean-forward="true" selection-start-line="131" selection-start-column="33" selection-end-line="132" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/views/modules/transactions/Index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="322">
+          <caret line="154" column="46" lean-forward="true" selection-start-line="154" selection-start-column="46" selection-end-line="154" selection-end-column="46" />
+          <folding>
+            <element signature="n#div#0;n#vs-row#0;n#div#1;n#vs-row#0;n#vx-card#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#1;n#vs-row#0;n#div#1;n#vs-row#0;n#vx-card#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#div#2;n#vs-row#0;n#div#1;n#vs-row#0;n#vx-card#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#style#0;n#div#0;n#vs-td#2;n#vs-tr#0;n#slot#0;n#template#1;n#vs-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#vs-td#2;n#vs-tr#0;n#slot#0;n#template#1;n#vs-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/layouts/components/vertical-nav-menu/navMenuItems.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="35" column="19" lean-forward="true" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/views/modules/map/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="164" column="36" selection-start-line="164" selection-start-column="36" selection-end-line="164" selection-end-column="36" />
+        <state relative-caret-position="253">
+          <caret line="59" column="41" lean-forward="true" selection-start-line="59" selection-start-column="41" selection-end-line="59" selection-end-column="41" />
           <folding>
             <element signature="n#style#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -883,6 +934,10 @@
             <element signature="e#4296#4435#0" />
             <element signature="e#4456#4546#0" />
             <element signature="e#4568#4687#0" />
+            <element signature="e#4716#5149#0" />
+            <element signature="e#5180#5481#0" />
+            <element signature="e#5697#5706#0" />
+            <element signature="e#5751#5907#0" />
             <element signature="e#5511#5556#0" />
             <element signature="e#5580#5872#0" />
             <element signature="e#5901#6026#0" />

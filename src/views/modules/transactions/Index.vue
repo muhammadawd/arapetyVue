@@ -3,31 +3,44 @@
     <vx-card>
       <vs-row>
 
-        <div class="vx-col w-1/2 md:w-1/3 xl:w-1/6 m-1">
-          <statistics-card-line
-            hideChart
-            class="mb-base"
-            icon="CreditCardIcon"
-            color='warning'
-            :statistic="parseFloat(total_exports+total_imports).toFixed(3)"
-            :statisticTitle="$t('transactions')"/>
+        <div class="vx-col w-1/3">
+          <label class="vs-input--label">{{$t('date')}}</label>
+          <flat-pickr class="vs-inputx vs-input--input normal"
+                      :value="new Date()"
+                      v-model="date_range"
+                      ref="dateRange"
+                      :config="flatPickrConfig"/>
         </div>
-        <div class="vx-col w-1/2 md:w-1/3 xl:w-1/6 m-1">
-          <statistics-card-line
-            hideChart
-            class="mb-base"
-            icon="ArrowDownIcon"
-            color='danger'
-            :statistic="parseFloat(total_imports).toFixed(3)"
-            :statisticTitle="$t('imports')"/>
-        </div>
-        <div class="vx-col w-1/2 md:w-1/3 xl:w-1/6 m-1">
-          <statistics-card-line
-            hideChart
-            class="mb-base"
-            icon="ArrowUpIcon"
-            :statistic="parseFloat(total_exports).toFixed(3)"
-            :statisticTitle="$t('exports')"/>
+        <div class="vx-col w-1/6"></div>
+        <div class="vx-col w-1/2">
+          <vs-row>
+            <div class="vx-col  md:w-1/3 xl:w-1/3 ">
+              <statistics-card-line
+                hideChart
+                class="mb-base"
+                icon="CreditCardIcon"
+                color='warning'
+                :statistic="parseFloat(total_exports+total_imports).toFixed(3)"
+                :statisticTitle="$t('transactions')"/>
+            </div>
+            <div class="vx-col  md:w-1/3 xl:w-1/3 ">
+              <statistics-card-line
+                hideChart
+                class="mb-base"
+                icon="ArrowDownIcon"
+                color='danger'
+                :statistic="parseFloat(total_imports).toFixed(3)"
+                :statisticTitle="$t('imports')"/>
+            </div>
+            <div class="vx-col   md:w-1/3 xl:w-1/3 ">
+              <statistics-card-line
+                hideChart
+                class="mb-base"
+                icon="ArrowUpIcon"
+                :statistic="parseFloat(total_exports).toFixed(3)"
+                :statisticTitle="$t('exports')"/>
+            </div>
+          </vs-row>
         </div>
 
         <!--<vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="12">-->
@@ -109,6 +122,14 @@
       return {
         transactions: [],
         query: '',
+        start_date: '',
+        end_date: '',
+        date_range: '',
+        flatPickrConfig: {
+          dateFormat: "Y-m-d",
+          mode: 'range',
+          maxDate: "today",
+        },
         total_imports: '',
         total_exports: '',
         currentx: 1,
@@ -121,6 +142,24 @@
     watch: {
       currentx: function (n, o) {
         this.getAllTransactions()
+      },
+      date_range: function (n, o) {
+
+        let start_date = null;
+        let end_date = null;
+        let check_request = null;
+
+        if (n) {
+          let arr = n.split(" to ");
+          start_date = arr[0];
+          end_date = arr[1] ? arr[1] : arr[0];
+          check_request = arr[1] ? arr[1] : null;
+        }
+
+        this.start_date = start_date;
+        this.end_date = end_date;
+        check_request ? this.getAllTransactions() : '';
+
       },
     },
     methods: {
@@ -146,6 +185,8 @@
         return {
           limit: 10,
           paginated: true,
+          start_date: this.start_date,
+          end_date: this.end_date,
           query: this.query,
           page: this.currentx
         }

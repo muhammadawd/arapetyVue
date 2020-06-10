@@ -23,7 +23,13 @@
                               <vs-avatar :badge="0" size="45px"
                                          :src="captain.image_path ? captain.image_path.path : require('@/assets/images/portrait/small/no_user.png')"/>
                               <span class="truncate text-bold p-2">{{captain.first_name}} {{captain.last_name}}</span>
-                              <span class="truncate text-bold p-2" v-if="captain.current_order">{{captain.current_order.id}}</span>
+
+                              <span class="truncate text-bold p-2" v-if="captain.status">
+                                <vs-chip :color="captain.status.name == 'available' ? 'primary': 'danger'">{{captain.status.translated.title}}</vs-chip>
+                              </span>
+                              <span class="truncate text-bold p-2" v-if="captain.current_order">
+                                <vs-chip color="#24c1a0">Order : #{{captain.current_order.id}}</vs-chip>
+                              </span>
                             </div>
                           </div>
 
@@ -50,6 +56,10 @@
         <vx-card>
           <gmap-map ref="mapRef" v-bind:center="center" v-bind:zoom="12" style="width: 100%; height:500px"
                     :options="{styles:$helper.getMapDarkStyle()}">
+            <gmap-marker ref="myMarker"
+                         v-if="lastPoint"
+                         :icon="markersIcons.success"
+                         :position="lastPoint"/>
             <gmap-polyline v-bind:path.sync="locations" v-bind:options="{ strokeColor:'#f00'}">
             </gmap-polyline>
           </gmap-map>
@@ -63,24 +73,32 @@
 
 
 <script>
-  import {mapState, mapActions} from 'vuex';
-
   export default {
     data() {
       return {
+        querySearch: '',
         active: false,
         captains: [],
         activeCaptains: [],
         onlineCaptains: [],
         locations: [],
-        querySearch: '',
+        markersIcons: {
+          success: require("@/assets/images/elements/success.png"),
+          danger: require("@/assets/images/elements/danger.png"),
+        },
         center: {
           lat: 30.782548,
           lng: 31.005233
         }
       }
     },
-    computed: {},
+    computed: {
+      lastPoint() {
+        let locations = this.locations;
+        if (!locations.length) return false;
+        return locations[locations.length - 1];
+      }
+    },
     components: {},
     mounted() {
       this.getAllCaptains();
@@ -149,6 +167,7 @@
             vm.center = locations[0];
           }
           let center = vm.center;
+          console.log(locations)
           vm.setMapPath(locations);
           vm.mapSetCenter(center);
         })

@@ -15,6 +15,14 @@
               <vs-input class="w-full" :label="$t('search')" name="search" @keyup.enter="submitFilter()"
                         autocomplete="off" v-model="query"/>
             </div>
+            <div class="vx-col w-full mb-2">
+              <label class="vs-input--label">{{$t('date')}}</label>
+              <flat-pickr class="vs-inputx vs-input--input normal"
+                          :value="new Date()"
+                          v-model="date_range"
+                          ref="dateRange"
+                          :config="flatPickrConfig"/>
+            </div>
           </div>
         </vs-col>
         <vs-col vs-type="flex" vs-justify="flex-end" vs-align="center" vs-w="6">
@@ -93,10 +101,21 @@
 </template>
 
 <script>
+  import flatPickr from 'vue-flatpickr-component';
+  import 'flatpickr/dist/flatpickr.css';
+
   export default {
-    components: {},
+    components: {flatPickr},
     data() {
       return {
+        start_date: '',
+        end_date: '',
+        date_range: '',
+        flatPickrConfig: {
+          dateFormat: "Y-m-d",
+          mode: 'range',
+          maxDate: "today",
+        },
         query: '',
         currentx: 1,
         pageTotal: 0,
@@ -108,6 +127,21 @@
     watch: {
       currentx: function (n, o) {
         this.getAllOrders()
+      },
+      date_range: function (n, o) {
+
+        let start_date = null;
+        let end_date = null;
+
+        if (n) {
+          let arr = n.split(" to ");
+          start_date = arr[0];
+          end_date = arr[1] ? arr[1] : arr[0];
+        }
+
+        this.start_date = start_date;
+        this.end_date = end_date;
+
       },
     },
     methods: {
@@ -143,9 +177,12 @@
         this.getAllOrders();
       },
       prepareFilters() {
+
         return {
           limit: 5,
           paginated: true,
+          start_date: this.start_date,
+          end_date: this.end_date,
           query: this.query,
           page: this.currentx,
           status_id: this.status_id

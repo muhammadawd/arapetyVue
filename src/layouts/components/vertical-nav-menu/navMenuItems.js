@@ -42,8 +42,6 @@ export default [
         name: "all_transactions",
         icon: "CreditCardIcon",
         i18n: "all_transactions",
-        tag: 'لم ينتهي',
-        tagColor: 'red',
         submenu: [
           {
             url: '/transactionModule/all_transactions',
@@ -126,8 +124,6 @@ export default [
         name: "orders",
         icon: "LifeBuoyIcon",
         i18n: "orders",
-        tag: 'لم ينتهي',
-        tagColor: 'red',
         submenu: [
           {
             url: '/ordersModule/all-orders',
@@ -148,8 +144,6 @@ export default [
         name: "maps",
         icon: "MapIcon",
         i18n: "maps",
-        tag: 'لم ينتهي',
-        tagColor: 'red',
         submenu: [
           {
             url: '/trackingModule/all_drivers_map',
