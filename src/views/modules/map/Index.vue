@@ -1,15 +1,19 @@
 <template>
   <div id="ag-grid-demo">
-    <div class="vx-row mb-6">
-      <div class="vx-col w-full md:w-1/3 mb-2">
+    <vs-button style="margin: 0" size="small" @click="rightVal  == 0 ? rightVal='-100%' : rightVal=0">
+      <i class="fas fa-bars"></i>
+      {{$t('captains')}}
+    </vs-button>
+    <div class="vx-row mb-6 relative">
+      <div class="vx-col w-full transition  md:w-1/3 mb-2" style="position: absolute;z-index: 99;"
+           :style="{right:`${rightVal} !important`}">
         <vx-card>
           <div class="vs-content-sidebar sidebarx main-menu-sidebar items-no-padding"
-               style="overflow: hidden">
+               style="overflow: hidden;">
             <vs-input class="w-full" :placeholder="$t('search')" @keyup.enter="filterDrivers()" v-model="querySearch"/>
             <div class="vs-sidebar"
                  style="position:relative; min-width: 220px;z-index:9;max-width:100%;max-height: 465px;overflow-y: scroll">
               <ul class="vs-sidebar-group-items">
-
                 <li v-for="(captain , key) in captains" :key="key">
                   <div class="vs-sidebar--item vs-sidebar-item-active">
                     <div class="p-3 pt-0" style="cursor: pointer;"
@@ -52,7 +56,7 @@
           </div>
         </vx-card>
       </div>
-      <div class="vx-col w-full md:w-2/3 mb-2">
+      <div class="vx-col w-full md:w-6/6 mb-2">
         <vx-card>
           <gmap-map ref="mapRef" v-bind:center="center" v-bind:zoom="12" style="width: 100%; height:500px"
                     :options="{styles:$helper.getMapDarkStyle()}">
@@ -78,6 +82,7 @@
       return {
         querySearch: '',
         active: false,
+        rightVal: 0,
         captains: [],
         activeCaptains: [],
         onlineCaptains: [],
@@ -203,3 +208,8 @@
     },
   }
 </script>
+<style>
+  .transition {
+    transition: all 0.5s ease-in-out !important;
+  }
+</style>
