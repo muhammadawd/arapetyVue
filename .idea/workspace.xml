@@ -2,28 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="25d5da00-ca9f-4f4e-b54f-b19881c92e78" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/store/socket/moduleSocket.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/socket/moduleSocketActions.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/socket/moduleSocketGetters.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/socket/moduleSocketMutations.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/socket/moduleSocketState.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/axios.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/auth/moduleAuthActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/auth/moduleAuthActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/captain/moduleCaptainActions.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/captain/moduleCaptainActions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/captain/moduleCaptainGetters.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/captain/moduleCaptainGetters.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/captain/moduleCaptainMutations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/captain/moduleCaptainMutations.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/captain/moduleCaptainState.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/captain/moduleCaptainState.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/store/store.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/store.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/modules/captains/add/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/modules/captains/add/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/modules/captains/edit/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/modules/captains/edit/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/modules/coupons/all/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/modules/coupons/all/Index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/views/modules/map/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/modules/map/Index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/modules/orders/show/Index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/modules/orders/show/Index.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/views/modules/map/Index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="193">
-              <caret line="15" column="60" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
+            <state relative-caret-position="288">
+              <caret line="145" column="26" lean-forward="true" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -51,7 +30,6 @@
                 <element signature="e#4296#4435#0" />
                 <element signature="e#4456#4546#0" />
                 <element signature="e#4568#4687#0" />
-                <element signature="e#5180#5481#0" />
                 <element signature="e#5511#5556#0" />
                 <element signature="e#5580#5872#0" />
                 <element signature="e#5901#6026#0" />
@@ -379,12 +357,12 @@
       <workItem from="1591347835593" duration="11000" />
       <workItem from="1591512784270" duration="24477000" />
       <workItem from="1591686215562" duration="14557000" />
-      <workItem from="1591773499799" duration="1735000" />
+      <workItem from="1591773499799" duration="1840000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="162011000" />
+    <option name="totallyTimeSpent" value="162116000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
@@ -893,8 +871,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/views/modules/map/Index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="15" column="60" selection-start-line="15" selection-start-column="60" selection-end-line="15" selection-end-column="60" />
+        <state relative-caret-position="288">
+          <caret line="145" column="26" lean-forward="true" selection-start-line="145" selection-start-column="26" selection-end-line="145" selection-end-column="26" />
           <folding>
             <element signature="n#style#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#vx-card#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -905,7 +883,6 @@
             <element signature="e#4296#4435#0" />
             <element signature="e#4456#4546#0" />
             <element signature="e#4568#4687#0" />
-            <element signature="e#5180#5481#0" />
             <element signature="e#5511#5556#0" />
             <element signature="e#5580#5872#0" />
             <element signature="e#5901#6026#0" />

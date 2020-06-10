@@ -143,6 +143,7 @@
       },
       getDriverLocations(id) {
         const vm = this;
+        vm.locations = [];
         vm.$socket.emit('getDriverLocations', id, (locations) => {
           if (locations.length) {
             vm.center = locations[0];
@@ -153,9 +154,12 @@
         })
       },
       socketIoLeaveTrack(driver_id) {
+        const vm = this;
+        vm.locations = [];
         vm.$socket.emit('leave', driver_id);
       },
       socketIoJoinTrack(driver_id) {
+        const vm = this;
         vm.$socket.emit('join', driver_id);
         vm.$socket.on('newDriverLocationListener', (data) => {
           console.log(data)
